@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>BookFace</title>
+        <link rel="stylesheet" href="bookFace.css" />
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="bookFace.js"></script>
+    </head>
+
+    <body>
+        <header>
+            <div id="headerInner">
+                <a class="navbar-item" href="#">
+                    <img src="images/bookFACE.png" id="home" alt="BookFace"/>
+                </a>
+                <a id="title">
+                    booKfaCe
+                </a>
+                <a id="topLinks" href="#">
+                    home
+                </a>
+                <a id="topLinks" href="#">
+                    messages
+                </a>
+                <a id="topLinks" href="#">
+                    search
+                </a>
+                <button id="button1">
+                    Log Out
+                </button>
+            </div>
+        </header>
+
+        <div id="messages">
+            <div id="messagesInner">
+                <p id="messageTitle">Messages</p>
+                <p class="message">message 1</p>
+                <p class="message">message 2</p>
+                <p class="message">message 3</p>
+                <a id="messagesMore" href="#">More ...</a>
+            </div>
+        </div>
+
+        <div id="composePost">
+            <textarea type="text" id="postText">Type Here:</textarea>
+            <img id="composePicture" src="images/mandelbrot.png" />
+
+            <div>
+                <img id="composeIcon" src="images/image.png" />
+                <img id="composeIcon" src="images/camera.png" />
+
+                <button id="button2">
+                    Post
+                </button>
+            </div>  
+        </div>
+        
+        <div id="feed">
+            <div id="posts">
+                <!-- add the posts here -->
+            </div>
+        </div>
+
+        <div id="explore"></div>
+        
+    </body>
+</html>
