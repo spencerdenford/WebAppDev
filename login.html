@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <script type="text/javascript" src="login.js"></script>
+        <link type="text/css" rel="stylesheet" href="login.css" />
+    </head>
+    
+    <body>
+        <header>
+            <!-- Navbar for creating account -->
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-menu">
+                <a class="logo" href="#">
+                    <img src="images/bookFACE.png" id="home" alt="BookFace"/>
+                </a>
+                <a class="title">
+                    BookFace
+                </a>
+                <a class="create", href="/createAccount">
+                    Create Account
+                </a>
+                </div>
+            </nav>
+        </header>
+
+        <div class="login">
+            <div class="content">
+                Welcome to BookFace! If you are a pre-existing user, please enter your account information below to log in!
+            </div>
+            <form method="post", class="form-vertical">
+                <div class="field">
+                    <!-- Username -->
+                    <label class="label">
+                        Username
+                    </label>
+                    <div class="control has-icons-left">
+                        <input class="input is-dark">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                    <!-- Password -->
+                    <label class="label">
+                        Password
+                    </label>
+                    <div class="control has-icons-left">
+                        <input class="input is-dark">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-key"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link">
+                            Log In
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+    </body>
+
+
+</html>

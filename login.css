@@ -1,0 +1,41 @@
+.navbar {
+    Background: #483D8B;
+}
+
+.logo {
+    margin-left: 1rem;
+    width: 3%;
+}
+
+.title {
+    color: white;
+    margin: 1rem;
+}
+
+.create {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    background-color: white; 
+    color: black; 
+    border: 2px solid darkblue;
+}
+
+.create:hover{
+    background-color: darkblue;
+    color: white;
+} 
+
+.login {
+    margin-left: 25rem;
+    width: 500px;
+	padding: 3rem;
+}
