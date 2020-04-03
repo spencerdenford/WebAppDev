@@ -12,6 +12,15 @@
     margin: 1rem;
 }
 
+.title:hover {
+    color: white;
+}
+
+.content {
+    font-weight: bold;
+    font-size: large;
+}
+
 .create {
     position: absolute;
     right: 1rem;
@@ -37,5 +46,5 @@
 .login {
     margin-left: 25rem;
     width: 500px;
-	padding: 3rem;
+    padding: 3rem;
 }
