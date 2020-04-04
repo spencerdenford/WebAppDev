@@ -1,0 +1,54 @@
+.navbar {
+    Background: #483D8B;
+}
+
+.logo {
+    margin-left: 1rem;
+    width: 3%;
+}
+
+.title {
+    color: white;
+    margin: 1rem;
+}
+
+.title:hover {
+    color: white;
+}
+
+.content {
+    font-weight: bold;
+    font-size: large;
+}
+
+.login {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    background-color: white; 
+    color: black; 
+    border: 2px solid darkblue;
+}
+
+.login:hover{
+    background-color: darkblue;
+    color: white;
+}
+
+.radio {
+    margin-right: 1rem;
+}
+
+.createAccount {
+    margin-left: 25rem;
+    width: 500px;
+    padding: 3rem;
+}
