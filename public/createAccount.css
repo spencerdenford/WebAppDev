@@ -21,7 +21,7 @@
     font-size: large;
 }
 
-.create {
+.login {
     position: absolute;
     right: 1rem;
     top: 1rem;
@@ -38,12 +38,16 @@
     border: 2px solid darkblue;
 }
 
-.create:hover{
+.login:hover{
     background-color: darkblue;
     color: white;
-} 
+}
 
-.login {
+.radio {
+    margin-right: 1rem;
+}
+
+.createAccount {
     margin-left: 25rem;
     width: 500px;
     padding: 3rem;

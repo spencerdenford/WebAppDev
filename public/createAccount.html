@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create Account</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <script type="text/javascript" src="createAccount.js"></script>
+        <link type="text/css" rel="stylesheet" href="createAccount.css" />
+    </head>
+    
+    <body>
+        <header>
+            <!-- Navbar -->
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-menu">
+                    <a class="logo" href="#">
+                        <img src="images/bookFACE.png" id="home" alt="BookFace"/>
+                    </a>
+                    <a class="title">
+                        BookFace
+                    </a>
+                    <a class="login", href="/login">
+                        Log In
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <div class="createAccount">
+            <div class="content">
+                Welcome to BookFace! If you are a new user, please provide the necessary information below to sign up!
+            </div>
+            <form method="post", class="form-vertical">
+                <div class="field">
+                    <!-- Username -->
+                    <label class="label">
+                        Username
+                    </label>
+                    <div class="control has-icons-left">
+                        <input class="input is-dark">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                    <!-- E-mail -->
+                    <label class="label">
+                        E-mail
+                    </label>
+                    <div class="control has-icons-left">
+                        <input class="input is-dark" type="email" placeholder="Example@bookface.com">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    </div>
+                    <!-- Password -->
+                    <label class="label">
+                        Password
+                    </label>
+                    <div class="control has-icons-left">
+                        <input class="input is-dark" type="password">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-key"></i>
+                        </span>
+                    </div>
+                    <!-- Birthday -->
+                    <label class="label">
+                        Birthday
+                    </label>
+                    <div class="control has-icons-left">
+                        <input class="input is-dark" placeholder="YYYY/MM/DD">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-birthday-cake"></i>
+                        </span>
+                    </div>
+                    <!-- Gender -->
+                    <label class="label">
+                        Gender
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="answer">
+                        Female
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="answer">
+                        Male
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="answer">
+                        Other
+                    </label>
+                </div>
+
+                <!-- Create Account Button -->
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link">
+                            Create Account
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
