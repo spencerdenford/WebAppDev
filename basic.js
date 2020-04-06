@@ -1,11 +1,13 @@
 let express = require("express");
-let path = require('path');
 let app = express();
 
-// database config
+let session = require('express-session');
 let bodyParser = require('body-parser');
+let uuid = require('uuid/v1');
 let mongoose = require('mongoose');
+let bcrypt = require('bcrypt-nodejs');
 
+// database config
 mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost:27017/bookface', {
   useNewUrlParser: true
@@ -18,7 +20,41 @@ mongoose.connect('mongodb://localhost:27017/bookface', {
 );
 mongoose.set('useCreateIndex', true);
 
-// database schema
+// middleware
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({
+   extended: false
+}));
+
+// configure sessions
+app.use(session({
+  genid: function(request) {
+     return uuid();
+  },
+  resave: false,
+  saveUninitialized: false,
+  // cookie: {secure: true},
+  secret: 'apollo slackware prepositional expectations'
+}));
+
+// database schemas
+let Schema = mongoose.Schema;
+let userSchema = new Schema({
+   username: {
+      type: String,
+      unique: true,
+      index: true
+   },
+   email: String,
+   hashedPassword: String,
+   birthday: String,
+   gender: String,
+   friendsList: [{type: String, unique: true}]
+}, {
+   collection: 'users'
+});
+let User = mongoose.model('user', userSchema);
+
 let postSchema = new mongoose.Schema(
   {
     username: String,
@@ -28,10 +64,7 @@ let postSchema = new mongoose.Schema(
 );
 let posts = mongoose.model('post', postSchema);
 
-
-
-app.use(express.static(__dirname + '/public'));
-
+// routes
 app.get('/home', (request, response) => {
   response.sendFile(__dirname + '/public/bookFace.html');
 });
@@ -45,8 +78,8 @@ app.get('/postButton', function(req, res){
   posts.add({username: "default", postContent: req.body});
 });
 
-app.set('port', 3000);
-
-app.listen(app.get('port'), () => {
-  console.log(`Listening to requests on http://localhost:3000`);
+// web listener
+app.set('port', process.env.PORT || 3000);
+app.listen(app.get('port'), function() {
+   console.log('Server listening on port ' + app.get('port'));
 });
