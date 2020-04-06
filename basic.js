@@ -65,6 +65,18 @@ let postSchema = new mongoose.Schema(
 let posts = mongoose.model('post', postSchema);
 
 // routes
+app.get('/', (request, response) => {
+  response.sendFile(__dirname + '/public/login.html');
+});
+
+app.get('/login', (request, response) => {
+  response.sendFile(__dirname + '/public/login.html');
+});
+
+app.get('/createAccount', (request, response) => {
+  response.sendFile(__dirname + '/public/createAccount.html');
+});
+
 app.get('/home', (request, response) => {
   response.sendFile(__dirname + '/public/bookFace.html');
 });
