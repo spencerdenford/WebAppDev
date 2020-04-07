@@ -55,13 +55,12 @@ let userSchema = new Schema({
 });
 let User = mongoose.model('user', userSchema);
 
-let postSchema = new mongoose.Schema(
-  {
+let postSchema = new Schema({
     username: String,
     postContent: String
-  },
-  { collection: 'posts' }
-);
+}, { 
+    collection: 'posts' 
+});
 let posts = mongoose.model('post', postSchema);
 
 // routes
