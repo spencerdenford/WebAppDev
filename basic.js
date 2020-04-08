@@ -89,6 +89,57 @@ app.get('/postButton', function(req, res){
   posts.add({username: "default", postContent: req.body});
 });
 
+app.post('/createAccount', (request, response) => {
+  username = request.body.username;
+  email = request.body.email;
+  password = request.body.password;
+  hashedPassword = bcrypt.hashSync(password);
+  birthday = request.body.birthday;
+
+  if(request.body.Female == "Female") {
+    gender = request.body.Female;
+  }
+  else if (request.body.Male == "Male") {
+    gender = request.body.Male;
+  }
+  else if (request.body.Other == "Other") {
+    gender = request.body.Other;
+  }
+
+  /*
+  console.log(username);
+  console.log(email);
+  console.log(password);
+  console.log('Hashed password:', hashedPassword);
+  console.log(birthday);
+  console.log(gender);
+  */
+
+  userData = {
+    username: username,
+    email: email,
+    hashedPassword: hashedPassword,
+    birthday: birthday,
+    gender: gender
+  }
+
+  User.find({
+    username: username
+  }).then(function(results) {
+    //User doesn't already exist
+    if(results.length == 0) {
+      newUser = new User(userData);
+      newUser.save(function(error) {
+        if (error) {
+          console.log("Error adding user: ", error);
+        } else {
+          console.log("User added");
+        }
+      });
+    }  
+  });
+});
+
 // web listener
 app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
