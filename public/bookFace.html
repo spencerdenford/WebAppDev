@@ -41,19 +41,19 @@
             </div>
         </div>
 
-        <div id="composePost">
-            <textarea type="text" id="postText" href="/composePost">Type Here:</textarea>
+        <form method="post" action="/postButton" id="composePost">
+            <input type="text" name="textfield" id="postText" href="/composePost">Type Here:</textarea>
             <img id="composePicture" src="images/mandelbrot.png" />
 
             <div>
                 <img id="composeIcon" src="images/image.png" />
                 <img id="composeIcon" src="images/camera.png" />
-
-                <button id="button2" href="/postButton">
+                
+                <input type="submit" id="button2"><!-- href="/postButton"> -->
                     Post
                 </button>
             </div>  
-        </div>
+        </form>
         
         <div id="feed">
             <div id="posts">

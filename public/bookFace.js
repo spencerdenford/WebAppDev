@@ -15,10 +15,10 @@ window.onload = function(){
         postText.value = "";
     }
 
-    document.getElementById("button2").onclick = function(){
+    /*document.getElementById("button2").onclick = function(){
         console.log(postText.value);
         postText.value = "";
-    }
+    }*/
     
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);

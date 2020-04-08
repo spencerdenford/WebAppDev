@@ -39,6 +39,7 @@ app.use(session({
 
 // database schemas
 let Schema = mongoose.Schema;
+
 let userSchema = new Schema({
    username: {
       type: String,
@@ -61,7 +62,7 @@ let postSchema = new Schema({
 }, { 
     collection: 'posts' 
 });
-let posts = mongoose.model('post', postSchema);
+let Post = mongoose.model('posts', postSchema);
 
 // routes
 app.get('/', (request, response) => {
@@ -84,9 +85,27 @@ app.get('/api', function (req, res) {
   res.send('{"username": "spec7", "text": "bookface lol", "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQvMH7RDi7o82e4rg49UmWA2ipwckVcmjLv2MQJMadRLMh_GDH_"}');
 });
 
-app.get('/postButton', function(req, res){
-  console.log(req.body);
-  posts.add({username: "default", postContent: req.body});
+app.post('/postButton', function(req, res){
+  console.log("HERE");
+  //var body = req.body;
+  console.log(req.body.textfield);
+  //Post.add({username: "default", postContent: req.body.textfield});
+  
+  newPost = new Post({
+    username: "default",
+    postContent: req.body.textfield,
+  });
+
+  newPost.save(function (error) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("save success");
+    }
+  });
+
+  //res.send("localhost:3000/home");
+  
 });
 
 // web listener
