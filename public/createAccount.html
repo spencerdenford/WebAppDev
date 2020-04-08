@@ -33,41 +33,41 @@
             <form method="post", class="form-vertical">
                 <div class="field">
                     <!-- Username -->
-                    <label class="label">
+                    <label class="label" for="username">
                         Username
                     </label>
                     <div class="control has-icons-left">
-                        <input class="input is-dark">
+                        <input class="input is-dark" id="username" name="username">
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
                     </div>
                     <!-- E-mail -->
-                    <label class="label">
+                    <label class="label" for="email">
                         E-mail
                     </label>
                     <div class="control has-icons-left">
-                        <input class="input is-dark" type="email" placeholder="Example@bookface.com">
+                        <input class="input is-dark" type="email" placeholder="Example@bookface.com" id="email" name="email">
                         <span class="icon is-small is-left">
                             <i class="fas fa-envelope"></i>
                         </span>
                     </div>
                     <!-- Password -->
-                    <label class="label">
+                    <label class="label" for="password">
                         Password
                     </label>
                     <div class="control has-icons-left">
-                        <input class="input is-dark" type="password">
+                        <input class="input is-dark" type="password" id="password" name="password">
                         <span class="icon is-small is-left">
                             <i class="fas fa-key"></i>
                         </span>
                     </div>
                     <!-- Birthday -->
-                    <label class="label">
+                    <label class="label" for="birthday">
                         Birthday
                     </label>
                     <div class="control has-icons-left">
-                        <input class="input is-dark" placeholder="YYYY/MM/DD">
+                        <input class="input is-dark" placeholder="YYYY/MM/DD" id="birthday" name="birthday">
                         <span class="icon is-small is-left">
                             <i class="fas fa-birthday-cake"></i>
                         </span>
@@ -76,16 +76,16 @@
                     <label class="label">
                         Gender
                     </label>
-                    <label class="radio">
-                        <input type="radio" name="answer" value="Female" id="genderRadio1">
+                    <label class="radio" for="Female">
+                        <input type="radio" name="Female" value="Female" id="genderRadio1">
                         Female
                     </label>
-                    <label class="radio">
-                        <input type="radio" name="answer" value="Male" id="genderRadio2">
+                    <label class="radio" for="Male">
+                        <input type="radio" name="Male" value="Male" id="genderRadio2">
                         Male
                     </label>
-                    <label class="radio">
-                        <input type="radio" name="answer" value="Other" id="genderRadio3">
+                    <label class="radio" for="Other">
+                        <input type="radio" name="Other" value="Other" id="genderRadio3">
                         Other
                     </label>
                 </div>
