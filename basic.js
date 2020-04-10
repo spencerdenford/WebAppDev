@@ -1,11 +1,18 @@
 let express = require("express");
 let app = express();
 
+var http = require('http');
+var formidable = require('formidable');
+var fs = require('fs');
+
 let session = require('express-session');
 let bodyParser = require('body-parser');
 let uuid = require('uuid/v1');
 let mongoose = require('mongoose');
 let bcrypt = require('bcrypt-nodejs');
+
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
 
 // database config
 mongoose.Promise = global.Promise
@@ -58,7 +65,10 @@ let User = mongoose.model('user', userSchema);
 
 let postSchema = new Schema({
     username: String,
-    postContent: String
+    postContent: String,
+    imageURL: String,
+    image: Buffer,
+    imageD: String,
 }, { 
     collection: 'posts' 
 });
@@ -82,18 +92,59 @@ app.get('/home', (request, response) => {
 });
 
 app.get('/api', function (req, res) {
-  res.send('{"username": "spec7", "text": "bookface lol", "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQvMH7RDi7o82e4rg49UmWA2ipwckVcmjLv2MQJMadRLMh_GDH_"}');
+
+  res.send('{"username": "spec7", "text": "bookface lol", "imageURL":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQvMH7RDi7o82e4rg49UmWA2ipwckVcmjLv2MQJMadRLMh_GDH_"}');
 });
 
 app.post('/postButton', function(req, res){
   console.log("HERE");
   //var body = req.body;
-  console.log(req.body.textfield);
+  //console.log(req.body.textfield);
   //Post.add({username: "default", postContent: req.body.textfield});
-  
+  //console.log(req.body.filetoupload);
+  //console.log(req.body.filetoupload['0']);
+  //console.log(Object.keys(req.files));
+
+  // Express file upload
+  /*
+  if (!req.files || Object.keys(req.files).length === 0) {
+    res.status(400).send('No files were uploaded.');
+  }
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  let filetoupload = req.files.filetoupload;
+  // Use the mv() method to place the file somewhere on your server
+  filetoupload.mv('C:/code/WebApps/WebAppDev/public/images/useruploads/' + req.body.filetoupload, function (err) {
+    if (err)
+      return res.status(500).send(err);
+    res.send('File uploaded!');
+  });
+  */
+
+
+  // Formidable file upload
+  /*
+  var form = new formidable.IncomingForm();
+  form.on('error', function (err) { console.log(err); });
+  form.on('aborted', function () { console.log('Aborted'); });
+  form.parse(req, function (err, fields, files) {
+    console.log("here");
+    var oldpath = files.filetoupload.path;
+    console.log("oldpath");
+    var newpath = 'C:/code/WebApps/WebAppDev/public/images/' + files.filetoupload.name;
+    fs.rename(oldpath, newpath, function (err) {
+      if (err) throw err;
+      res.write('File uploaded and moved!');
+      res.end();
+    });
+  });
+  */
+
   newPost = new Post({
     username: "default",
     postContent: req.body.textfield,
+    imageURL: req.body.filetoupload,
+    //image: req.body.filetoupload,
+    //imageD: req.body.filetoupload,
   });
 
   newPost.save(function (error) {

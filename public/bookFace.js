@@ -2,7 +2,7 @@ function reqListener(data) {
     console.log(this.responseText);
     var jsonData = JSON.parse(this.responseText);
     console.log(jsonData);
-    $('#posts').append(`<div><p>${jsonData.username}: </p><p>${jsonData.text}</p><img src=\"${jsonData.image}\"/></div>`);
+    $('#posts').append(`<div><p>${jsonData.username}: </p><p>${jsonData.text}</p><img src=\"${jsonData.imageURL}\"/></div>`);
 }
 
 window.onload = function(){

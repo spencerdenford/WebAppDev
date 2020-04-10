@@ -42,13 +42,13 @@
         </div>
 
         <form method="post" action="/postButton" id="composePost">
-            <input type="text" name="textfield" id="postText" href="/composePost">Type Here:</textarea>
-            <img id="composePicture" src="images/mandelbrot.png" />
+            <input type="text" name="textfield" id="postText" href="/composePost" placeholder="Type Here:"></textarea>
+            <img id="composePicture" src="images/mandelbrot.png"/>
 
             <div>
-                <img id="composeIcon" src="images/image.png" />
-                <img id="composeIcon" src="images/camera.png" />
-                
+                <!--<img id="composeIcon" src="images/image.png"/>-->
+                <!--<img id="composeIcon" src="images/camera.png"/>-->
+                <input type="file" name="filetoupload"/>
                 <input type="submit" id="button2"><!-- href="/postButton"> -->
                     Post
                 </button>
