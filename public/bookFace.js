@@ -13,13 +13,13 @@ function likeButton() {
             //console.log(this.parentElement.children[5]);
             if (this.src == "http://localhost:3000/images/heart.png"){
                 this.src = "http://localhost:3000/images/hearted.png";
-                this.parentElement.children[5].innerHTML = parseInt(document.getElementById("likes").innerHTML) + 1;
+                this.parentElement.children[5].innerHTML = parseInt(this.parentElement.children[5].innerHTML) + 1;
                 // TODO: increment like count in database
             }
             else{
                 this.src = "http://localhost:3000/images/heart.png";
                 // 5 because that is the index of the "likecount" element
-                this.parentElement.children[5].innerHTML = parseInt(document.getElementById("likes").innerHTML) - 1; 
+                this.parentElement.children[5].innerHTML = parseInt(this.parentElement.children[5].innerHTML) - 1; 
                 // TODO: decrement like count in database
             }
         }
