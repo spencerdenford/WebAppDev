@@ -150,6 +150,7 @@ app.post('/postButton', function(req, res){
   //res.send("localhost:3000/home");
 });
 
+//TODO - Check if a text field is NULL, if so, don't create account
 app.post('/createAccount', (request, response) => {
   username = request.body.username;
   email = request.body.email;
@@ -157,6 +158,7 @@ app.post('/createAccount', (request, response) => {
   hashedPassword = bcrypt.hashSync(password);
   birthday = request.body.birthday;
 
+  //Assigning gender from radio button input
   if(request.body.Female == "Female") {
     gender = request.body.Female;
   }
@@ -167,14 +169,12 @@ app.post('/createAccount', (request, response) => {
     gender = request.body.Other;
   }
 
-  /*
   console.log(username);
   console.log(email);
   console.log(password);
   console.log('Hashed password:', hashedPassword);
   console.log(birthday);
   console.log(gender);
-  */
 
   userData = {
     username: username,
@@ -193,12 +193,42 @@ app.post('/createAccount', (request, response) => {
       newUser.save(function(error) {
         if (error) {
           console.log("Error adding user: ", error);
+          response.sendFile(__dirname + '/public/createAccountFailure.html')
         } else {
           console.log("User added");
+          response.sendFile(__dirname + '/public/createAccountSuccess.html')
         }
       });
     }  
   });
+});
+
+app.post('/processLogin', (request, response) => {
+  username = request.body.username;
+  password = request.body.password;
+
+  User.find({username: username}).then(function(results) {
+    if (results.length != 1) {
+       console.log('login: no user found');
+       //Error logging in - user doesn't exist, load failure page
+       response.sendFile(__dirname + '/public/loginFailure.html')
+    } else {
+       //User was found, now check the password
+       console.log('login password:', results[0].hashedPassword);
+       if (bcrypt.compareSync(password, results[0].hashedPassword)) {
+          //Password match - successful login, load success page
+          response.sendFile(__dirname + '/public/loginSuccess.html')  
+       } else {
+          console.log('login: password is not a match');
+          //Error logging in - invalid password, load failure page
+          response.sendFile(__dirname + '/public/loginFailure.html')
+       }
+    }
+ }).catch(function(error) {
+    //Error logging in - user doesn't exist, load failure page
+    console.log('login: catch');
+    response.sendFile(__dirname + '/public/loginFailure.html')
+ });
 });
 
 // web listener
