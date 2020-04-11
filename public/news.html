@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
+   <link rel="stylesheet" href="news.css" type="text/css" />
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+   <script type="text/javascript" src="news.js" ></script>
+   <title>News</title>
+</head>
+<body>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-menu">
+                <a class="logo" href="bookFace.html">
+                    <img src="images/bookFACE.png" id="home" alt="BookFace"/>
+                </a>
+                <a class="title" href="bookFace.html">
+                    BookFace
+                </a>
+                <a class="title" href="bookFace.html">
+                    Home
+                </a>
+                <a class="title">
+                    Profile
+                </a>
+            </div>
+        </nav>
+        <h1>News</h1>
+    </header>
+
+    <!-- Attributon Link -->
+    <svg height="30" width="200">
+        <text x="25" y="15" fill="black">Powered by</text>
+        <a href="https://newsapi.org/" target="_blank">
+            <text x="110" y="15" fill="blue" text-decoration="underline">News API</text>
+        </a>
+    </svg>
+
+    <!-- News -->
+    <div class="newsArticles"></div>
+</body>
+</html>
