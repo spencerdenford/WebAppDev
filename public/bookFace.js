@@ -1,8 +1,15 @@
-function reqListener(data) {
-    console.log(this.responseText);
+async function reqListener(data) {
+    //data = this.responseText;
     var jsonData = JSON.parse(this.responseText);
     console.log(jsonData);
-    $('#posts').append(`<div><p>${jsonData.username}: </p><p>${jsonData.text}</p><img src=\"${jsonData.imageURL}\"/></div>`);
+    var hostURL = "http://localhost:3000/images/useruploads/"
+    for(var i = jsonData.length - 1; i > -1; i--){
+        $('#posts').append(`<div><p>${jsonData[i].username}: </p><p>${jsonData[i].postText}</p><img src=\"${hostURL}${jsonData[i].imageURL}\"/></div>`);
+    }
+    //console.log(jsonData);
+    //
+    //console.log(hostURL + jsonData.imageURL);
+    //$('#posts').append(`<div><p>${jsonData.username}: </p><p>${jsonData.text}</p><img src=\"${hostURL}${jsonData.imageURL}\"/></div>`);
 }
 
 window.onload = function(){
