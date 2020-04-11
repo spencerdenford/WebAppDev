@@ -1,0 +1,40 @@
+.navbar {
+    Background: #483D8B;
+}
+
+.logo {
+    margin-left: 1rem;
+    width: 3%;
+}
+
+.title {
+    color: white;
+    margin: 1rem;
+}
+
+.title:hover {
+    color: white;
+}
+
+header h1 {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 250%;
+}
+
+svg {
+    display: block;
+    margin: auto;
+}
+
+.newsArticles {
+    margin: 2rem;
+}
+
+#article {
+    
+}
+
+#articleDetails {
+    
+}

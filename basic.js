@@ -110,6 +110,7 @@ app.get('/api', async function (req, res) {
   //res.send('{"username": "spec7", "text": "bookface lol", "imageURL":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQvMH7RDi7o82e4rg49UmWA2ipwckVcmjLv2MQJMadRLMh_GDH_"}');
 });
 
+
 // add post to posts collection when user clicks post
 app.post('/postButton', function(req, res){
   // get the post text

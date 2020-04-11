@@ -115,9 +115,34 @@ header img {
     color: white;
 }
 
-.post{
-
+#post {
+    border: 1px solid gray;
+    padding: 1rem;
+    margin-bottom: 1rem;
 }
+
+#postpic {
+    border-radius: 50%;
+    float: left;
+}
+
+#postname {
+    padding-left: 1rem;
+    float: left;
+}
+
+#posttime {
+    float: right;
+}
+
+#postcontent {
+    padding-top: 2.25rem;
+}
+
+#likes {
+    padding-right: 3rem;
+}
+
 
 #composePost {
     grid-column: 2;
@@ -188,7 +213,6 @@ header img {
 
     margin: 1rem;
 
-    color: green;
 }
 
 
