@@ -91,10 +91,9 @@ app.get('/home', (request, response) => {
   response.sendFile(__dirname + '/public/bookFace.html');
 });
 
-app.get('/api', function (req, res) {
-
-  res.send('{"username": "spec7", "text": "bookface lol", "imageURL":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQvMH7RDi7o82e4rg49UmWA2ipwckVcmjLv2MQJMadRLMh_GDH_"}');
-});
+//app.get('/api', function (req, res) {
+//  res.send('{"username": "spec7", "text": "bookface lol", "imageURL":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQvMH7RDi7o82e4rg49UmWA2ipwckVcmjLv2MQJMadRLMh_GDH_"}');
+//});
 
 app.post('/postButton', function(req, res){
   console.log("HERE");
