@@ -17,7 +17,7 @@ function addPost(username, postText, imageURL, postTime){
     var post = `<div id="post">
         <image id="postpic" src="images/mandelbrot.png" height="35" />
         <div id="postname">${username}</div>
-        <div id="posttime">${postTime}</div>
+        <div id="posttime">${formatDate(postTime)}</div>
         <p id="postcontent">
             ${postText}
         </p>
@@ -52,6 +52,22 @@ function likeButton() {
     }
 }
 
+function formatDate(d){
+    var date = new Date(d);
+    var dateString = "";
+    if (date.getHours() == 0) {
+        dateString += "12:" + (date.getMinutes()) + "am "
+    }
+    else if (date.getHours() < 12) {
+        dateString += (date.getHours()) + ":" + (date.getMinutes()) + "am ";
+    }
+    else {
+        dateString += (date.getHours() - 12) + ":" + (date.getMinutes()) + "pm ";
+    }
+    dateString += (date.getDate()) + "/" + (date.getMonth()) + "/" + (date.getFullYear());
+    return dateString;
+}
+
 window.onload = function(){
     // call likeButton to add the onclick function to all the posts already on screen
     likeButton();
@@ -67,20 +83,9 @@ window.onload = function(){
     }
     
     // add new posts when the "post" button is clicked
-    document.getElementById("button2").onclick = function(){
+    /*document.getElementById("button2").onclick = function(){
         if (postText.value != "") {
             var d = new Date();
-            var date = "";
-            if (d.getHours() == 0){
-                date += "12:" + (d.getMinutes()) + "am "
-            }
-            else if (d.getHours() < 12){
-                date += (d.getHours()) + ":" + (d.getMinutes()) + "am ";
-            }
-            else {
-                date += (d.getHours() - 12) + ":" + (d.getMinutes()) + "pm ";
-            }
-            date += (d.getDate()) + "/" + (d.getMonth()) + "/" + (d.getFullYear());
             
             var posts = document.getElementById("posts");
             // TODO: add all of the new information to the post from the current user.
@@ -105,7 +110,7 @@ window.onload = function(){
         }
 
         postText.value = "";
-    }
+    }*/
 
     /*document.getElementById("button2").onclick = function(){
         console.log(postText.value);
