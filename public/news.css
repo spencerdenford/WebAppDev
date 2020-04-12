@@ -32,9 +32,34 @@ svg {
 }
 
 #article {
-    
+    border-bottom: 1px solid #ddd;
 }
 
 #articleDetails {
-    
+    padding-top: 2rem;
+    padding-bottom: 0.5rem;
+}
+
+#title {
+    font-weight: bold;
+    font-size: larger;
+}
+
+#description {
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+#content{
+    padding-top: 0.5rem;
+    padding-bottom: 0.1rem;
+    border-top: 1px solid black;
+}
+
+#articlePic {
+    padding: 1rem;
+}
+
+#image {
+    border-radius: 8px;
 }
