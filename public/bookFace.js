@@ -128,4 +128,6 @@ window.onload = function(){
         oReq.open("GET", "/api");
         oReq.send();
     }, 3000);*/
+    
+    likeButton();
 }
