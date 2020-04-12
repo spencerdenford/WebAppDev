@@ -104,10 +104,6 @@ app.get('/messages', (request, response) => {
   response.sendFile(__dirname + '/public/messages.html');
 });
 
-app.get('/news', (request, response) => {
-  response.sendFile(__dirname + '/public/news.html');
-});
-
 app.get('/api', async function (req, res) {
   var array = await mongoose.connection.db.collection('posts').find({}).toArray();
   //console.log(array[0]);
@@ -118,6 +114,9 @@ app.get('/api', async function (req, res) {
   //res.send('{"username": "spec7", "text": "bookface lol", "imageURL":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQvMH7RDi7o82e4rg49UmWA2ipwckVcmjLv2MQJMadRLMh_GDH_"}');
 });
 
+app.get('/news', (request, response) => {
+  response.sendFile(__dirname + '/public/news.html');
+});
 
 // add post to posts collection when user clicks post
 app.post('/postButton', function(req, res){
