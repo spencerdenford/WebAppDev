@@ -192,6 +192,8 @@ app.post('/createAccount', (request, response) => {
           response.sendFile(__dirname + '/public/createAccountFailure.html')
         } else {
           console.log("User added");
+          request.session.username = username;
+          console.log("Session Username: " + request.session.username); //Testing
           response.sendFile(__dirname + '/public/createAccountSuccess.html')
         }
       });
@@ -216,6 +218,8 @@ app.post('/processLogin', (request, response) => {
        console.log('login password:', results[0].hashedPassword);
        if (bcrypt.compareSync(password, results[0].hashedPassword)) {
           //Password match - successful login, load success page
+          request.session.username = username;
+          console.log("Session Username: " + request.session.username); //Testing
           response.sendFile(__dirname + '/public/loginSuccess.html')  
        } else {
           console.log('login: password is not a match');
