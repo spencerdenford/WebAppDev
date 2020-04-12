@@ -83,9 +83,10 @@ window.onload = function(){
     }
     
     // add new posts when the "post" button is clicked
-    /*document.getElementById("button2").onclick = function(){
+    document.getElementById("button2").onclick = function(){
         if (postText.value != "") {
             var d = new Date();
+            var date = formatDate(d);
             
             var posts = document.getElementById("posts");
             // TODO: add all of the new information to the post from the current user.
@@ -110,7 +111,7 @@ window.onload = function(){
         }
 
         postText.value = "";
-    }*/
+    }
 
     /*document.getElementById("button2").onclick = function(){
         console.log(postText.value);
