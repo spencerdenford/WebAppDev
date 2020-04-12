@@ -104,6 +104,10 @@ app.get('/messages', (request, response) => {
   response.sendFile(__dirname + '/public/messages.html');
 });
 
+app.get('/news', (request, response) => {
+  response.sendFile(__dirname + '/public/news.html');
+});
+
 app.get('/api', async function (req, res) {
   var array = await mongoose.connection.db.collection('posts').find({}).toArray();
   //console.log(array[0]);
