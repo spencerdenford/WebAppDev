@@ -91,6 +91,12 @@ header img {
     font-size: 2rem;
 }
 
+#oldestsenttime{
+    float: right;
+    
+    padding: 0.5rem;
+}
+
 #senttime { /*one for sent one for recieved*/
     float: right;
     margin-top: 1rem;
@@ -111,6 +117,7 @@ header img {
 #sendMessage {
     padding-left: 2rem;
     margin-left: 4rem;
+    margin-top: 2rem;
 
     height: 40px;
 
