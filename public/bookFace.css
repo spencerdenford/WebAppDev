@@ -2,7 +2,7 @@ body {
     margin: 0;
     display: grid;
     grid-template-rows: 6rem 10rem auto;
-    grid-template-columns: 20% 40% 40%;
+    grid-template-columns: 20% 50% 30%;
 }
 
 header {
@@ -81,12 +81,22 @@ header img {
     font-size: 3rem;
 }
 
-.message {
+#sender {
     font-size: 1.5rem;
     padding-left: 0.5rem;
     padding-top: 1rem;
 
+    text-decoration: none;
+    color: black;
+
     border-top: 1px solid gray;
+}
+
+#message {
+    margin-left: 1rem;
+    
+    text-decoration: none;
+    color: black;
 }
 
 #messagesMore {
@@ -97,6 +107,7 @@ header img {
     display: inline-block;
     transition-duration: 0.4s;
     cursor: pointer;
+    margin-top: 1rem;
 
     text-decoration: none;
 
@@ -108,6 +119,10 @@ header img {
 #messagesMore:hover {
     background-color: mediumblue;
     color: white;
+}
+
+#messageblock {
+    text-decoration: none;
 }
 
 #post {
@@ -210,19 +225,25 @@ header img {
 
 
 
-
-
-
-
-
-
-
-
-
 #explore {
     grid-column: 3;
-    grid-row: 2;
-    margin: 1rem;
+    grid-row: 2 / span 2;
+    margin: 5px;
 
-    color: blue;
+	background: lightgray;
+}
+
+#exploretitle {
+    font-size: 3rem;
+    margin-left: 1rem;
+}
+
+#newstitle {
+    font-size: 1.7rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    padding: 1rem;
+    
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
 }
