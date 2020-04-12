@@ -16,10 +16,10 @@
                 <a id="title">
                     booKfaCe
                 </a>
-                <a id="topLinks" href="#">
+                <a id="topLinks" href="/home">
                     home
                 </a>
-                <a id="topLinks" href="#">
+                <a id="topLinks" href="/messages">
                     messages
                 </a>
                 <a id="topLinks" href="#">
@@ -42,14 +42,14 @@
         </div>
 
         <form method="post" action="postButton" id="composePost" enctype="multipart/form-data">
-            <input type="text" name="textfield" id="postText" href="/composePost" placeholder="Type Here:"></textarea>
+            <input type="text" name="textfield" id="postText" placeholder="Type Here:" />
             <img id="composePicture" src="images/mandelbrot.png"/>
 
             <div>
-                <!--<img id="composeIcon" src="images/image.png"/>-->
-                <!--<img id="composeIcon" src="images/camera.png"/>-->
+                <img id="composeIcon" src="images/image.png"/>
                 <input type="file" name="filetoupload"/>
-                <input type="submit" id="button2" value="Post"><!-- href="/postButton"> -->
+                <!--<img id="composeIcon" src="images/camera.png"/>-->
+                <input type="submit" id="button2" value="Post">
                 </input>
             </div>  
         </form>
@@ -73,7 +73,9 @@
             </div>
         </div>
 
-        <div id="explore"></div>
+        <div id="explore">
+    
+        </div>
         
     </body>
 </html>
