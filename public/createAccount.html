@@ -37,7 +37,7 @@
                         Username
                     </label>
                     <div class="control has-icons-left">
-                        <input class="input is-dark" id="username" name="username">
+                        <input class="input is-dark" id="username" name="username" required>
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
@@ -47,7 +47,7 @@
                         E-mail
                     </label>
                     <div class="control has-icons-left">
-                        <input class="input is-dark" type="email" placeholder="Example@bookface.com" id="email" name="email">
+                        <input class="input is-dark" type="email" placeholder="Example@bookface.com" id="email" name="email" required>
                         <span class="icon is-small is-left">
                             <i class="fas fa-envelope"></i>
                         </span>
@@ -57,7 +57,7 @@
                         Password
                     </label>
                     <div class="control has-icons-left">
-                        <input class="input is-dark" type="password" id="password" name="password">
+                        <input class="input is-dark" type="password" id="password" name="password" required>
                         <span class="icon is-small is-left">
                             <i class="fas fa-key"></i>
                         </span>
@@ -67,7 +67,7 @@
                         Birthday
                     </label>
                     <div class="control has-icons-left">
-                        <input class="input is-dark" placeholder="YYYY/MM/DD" id="birthday" name="birthday">
+                        <input class="input is-dark" type="date" id="birthday" name="birthday" required>
                         <span class="icon is-small is-left">
                             <i class="fas fa-birthday-cake"></i>
                         </span>
@@ -77,15 +77,15 @@
                         Gender
                     </label>
                     <label class="radio" for="Female">
-                        <input type="radio" name="Female" value="Female" id="genderRadio1">
+                        <input type="radio" name="genderAnswer" value="Female" id="genderRadio1" required>
                         Female
                     </label>
                     <label class="radio" for="Male">
-                        <input type="radio" name="Male" value="Male" id="genderRadio2">
+                        <input type="radio" name="genderAnswer" value="Male" id="genderRadio2">
                         Male
                     </label>
                     <label class="radio" for="Other">
-                        <input type="radio" name="Other" value="Other" id="genderRadio3">
+                        <input type="radio" name="genderAnswer" value="Other" id="genderRadio3">
                         Other
                     </label>
                 </div>
