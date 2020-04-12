@@ -21,10 +21,6 @@ header img {
     height:auto;
 }
 
-#headerInner {
-    margin-bottom: 0.5rem;
-}
-
 #title {
     margin-left: 1rem;
     margin-bottom: 0.5rem;
@@ -72,7 +68,6 @@ header img {
     grid-column: 1;
     margin: 5px;
 
-	position: fixed;
 	left: 0;
 	top: 6rem;
 	background: lightgray;
@@ -143,11 +138,9 @@ header img {
     padding-right: 3rem;
 }
 
-
 #composePost {
     grid-column: 2;
     grid-row: 2;
-
 
     padding: 1rem;
 
@@ -168,7 +161,7 @@ header img {
 
 #postText {
     margin-left: 1rem;
-    width: 20rem;
+    width: 70%;
     height: 5rem;
 
     resize: none;
@@ -211,7 +204,7 @@ header img {
     grid-column: 2;
     grid-row: 3;
 
-    margin: 1rem;
+    margin-top: 1rem;
 
 }
 
