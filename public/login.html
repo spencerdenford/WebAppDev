@@ -30,14 +30,14 @@
             <div class="content">
                 Welcome to BookFace! If you are a pre-existing user, please enter your account information below to log in!
             </div>
-            <form method="post", class="form-vertical">
+            <form method="post", action="/processLogin", class="form-vertical">
                 <div class="field">
                     <!-- Username -->
                     <label class="label">
                         Username
                     </label>
                     <div class="control has-icons-left">
-                        <input class="input is-dark" required>
+                        <input class="input is-dark" id="username" name="username" required>
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
@@ -47,7 +47,7 @@
                         Password
                     </label>
                     <div class="control has-icons-left">
-                        <input class="input is-dark" type="password" required>
+                        <input class="input is-dark" type="password" id="password" name="password" required>
                         <span class="icon is-small is-left">
                             <i class="fas fa-key"></i>
                         </span>

@@ -67,7 +67,7 @@ let userSchema = new Schema({
   hashedPassword: String,
   birthday: String,
   gender: String,
-  friendsList: [{type: String, unique: true}]
+  //friendsList: [{type: String, sparse: true}]
 }, {
   collection: 'users'
 });
@@ -157,24 +157,13 @@ app.post('/postButton', function(req, res){
   //res.send("localhost:3000/home");
 });
 
-//TODO - Check if a text field is NULL, if so, don't create account
 app.post('/createAccount', (request, response) => {
   username = request.body.username;
   email = request.body.email;
   password = request.body.password;
   hashedPassword = bcrypt.hashSync(password);
   birthday = request.body.birthday;
-
-  //Assigning gender from radio button input
-  if(request.body.Female == "Female") {
-    gender = request.body.Female;
-  }
-  else if (request.body.Male == "Male") {
-    gender = request.body.Male;
-  }
-  else if (request.body.Other == "Other") {
-    gender = request.body.Other;
-  }
+  gender = request.body.genderAnswer;
 
   console.log(username);
   console.log(email);
@@ -213,6 +202,9 @@ app.post('/createAccount', (request, response) => {
 app.post('/processLogin', (request, response) => {
   username = request.body.username;
   password = request.body.password;
+
+  console.log(username);
+  console.log(password);
 
   User.find({username: username}).then(function(results) {
     if (results.length != 1) {

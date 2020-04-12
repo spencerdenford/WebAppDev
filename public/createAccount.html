@@ -30,7 +30,7 @@
             <div class="content">
                 Welcome to BookFace! If you are a new user, please provide the necessary information below to sign up!
             </div>
-            <form method="post", class="form-vertical">
+            <form method="post", action="/createAccount", class="form-vertical">
                 <div class="field">
                     <!-- Username -->
                     <label class="label" for="username">
@@ -77,15 +77,15 @@
                         Gender
                     </label>
                     <label class="radio" for="Female">
-                        <input type="radio" name="genderAnswer" value="Female" id="genderRadio1" required>
+                        <input type="radio" name="genderAnswer" value="Female" id="Female" required>
                         Female
                     </label>
                     <label class="radio" for="Male">
-                        <input type="radio" name="genderAnswer" value="Male" id="genderRadio2">
+                        <input type="radio" name="genderAnswer" value="Male" id="Male">
                         Male
                     </label>
                     <label class="radio" for="Other">
-                        <input type="radio" name="genderAnswer" value="Other" id="genderRadio3">
+                        <input type="radio" name="genderAnswer" value="Other" id="Other">
                         Other
                     </label>
                 </div>
