@@ -247,3 +247,28 @@ header img {
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
 }
+
+#articleTitle {
+    margin-left: 1rem;
+
+    font-weight: bold;
+    font-size: larger;
+}
+
+#articleSource {
+    margin-top: 0.1rem;
+    margin-left: 1rem;
+}
+
+#datePublished {
+    margin-top: 0.1rem;
+    margin-left: 1rem;
+}
+
+#articleImage {
+    margin-top: 1rem;
+    margin-left: 4rem;
+
+    border-radius: 8px;
+    height: 200px;
+}

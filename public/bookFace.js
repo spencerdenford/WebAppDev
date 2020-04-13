@@ -132,3 +132,37 @@ window.onload = function(){
     
     likeButton();
 }
+
+$(document).ready(function() {
+    //Retrieves the first Canadian news article from NewsAPI.org
+    $.ajax({
+        method: "get",
+        url: "http://newsapi.org/v2/top-headlines?country=ca&apiKey=244a29ce1f204a5da19a78c163b0c421",
+        async: false,
+        dataType: "json",
+        success: function(data) {
+            console.log(data);  //Testing
+            console.log(data.articles);  //Testing
+
+            var articles = data.articles;
+            var newsDisplay = "<table>";
+
+            newsDisplay += "<tr id='article'>";
+            newsDisplay += "<td id='articleDetails'>";
+            newsDisplay += "<a href='"+articles[0].url+"' target='_blank'>";
+            newsDisplay += "<div id='articleTitle'>"+articles[0].title+"</div>";
+            newsDisplay += "</a>";
+            newsDisplay += "<div id='articleSource'>"+articles[0].source.name+"</div>";
+            newsDisplay += "<div id='datePublished'>"+"Published: "+articles[0].publishedAt+"</div>";
+            //newsDisplay += "</td>";
+            //newsDisplay += "<td id='articlePic' align='center'>";
+            newsDisplay += "<img id='articleImage' src="+articles[0].urlToImage+">";
+            //newsDisplay += "</td>";
+            newsDisplay += "</td>";
+            newsDisplay += "</tr>";
+
+            newsDisplay += "</table>";
+            $(".newsArticles").html(newsDisplay);
+        }
+    })
+});
