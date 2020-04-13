@@ -81,12 +81,22 @@ app.get('/login', (request, response) => {
   response.sendFile(__dirname + '/public/login.html');
 });
 
+app.get('/logout', (request, response) => {
+  console.log("logout");
+  request.session.username = undefined;
+  response.redirect('/login');
+});
+
 app.get('/createAccount', (request, response) => {
   response.sendFile(__dirname + '/public/createAccount.html');
 });
 
 app.get('/home', (request, response) => {
-  response.sendFile(__dirname + '/public/bookFace.html');
+  if(request.session.username != undefined){
+    response.sendFile(__dirname + '/public/bookFace.html');
+  }else{
+    response.redirect('/login');
+  }
 });
 
 app.get('/messages', (request, response) => {
