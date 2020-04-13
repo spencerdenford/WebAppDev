@@ -4,11 +4,17 @@ async function reqListener(data) {
     console.log(jsonData);
     var hostURL = "http://localhost:3000/images/useruploads/"
     for(var i = jsonData.length - 1; i > -1; i--){
-        addPost(jsonData[i].username, jsonData[i].postText, hostURL + jsonData[i].imageURL, jsonData[i].time);
+        addPost(jsonData[i].username, 
+            jsonData[i].postText, 
+            hostURL + jsonData[i].imageURL, 
+            jsonData[i].time, 
+            jsonData[i]._id,
+            jsonData[i].likes.length,
+        );
     }
 }
 
-function addPost(username, postText, imageURL, postTime){
+function addPost(username, postText, imageURL, postTime, postID, numLikes){
     var post = `<div id="post">
         <image id="postpic" src="images/mandelbrot.png" height="35" />
         <div id="postname">${username}</div>
@@ -20,10 +26,14 @@ function addPost(username, postText, imageURL, postTime){
     if(imageURL != "http://localhost:3000/images/useruploads/")
         post += `<p><img class="attachedpicture" id="attachedpicture" src=${imageURL} height="200" width="200"/></p>`
 
-    post += `<img class="likebutton" id="likebutton" src="images/heart.png" height="20" />
-        <a class="likecount" id="likes">0</a>
-        <img src="images/comment.png" height="20" />
-        <a id="comments">0</a>
+    post += `
+        <form method="POST">
+            <input type="hidden" name="postID" id="test" value="${postID}">
+            <button type="submit" formaction="/like" style="background:transparent; border:none; color:transparent;"><img src="images/heart.png" height="20"></button>
+            <a class="likecount" id="likes">${numLikes}</a>
+            <button type="submit" formaction="/comment" style="background:transparent; border:none; color:transparent;"><img src="images/comment.png" height="20"></button>
+            <a id="comments">0</a>
+        </form>
         <!--share button-->
     </div>`;
     $('#posts').append(post);

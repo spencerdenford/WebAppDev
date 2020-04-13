@@ -6,6 +6,7 @@ let bodyParser = require('body-parser');
 let uuid = require('uuid/v1');
 let mongoose = require('mongoose');
 let bcrypt = require('bcrypt-nodejs');
+var ObjectId = require('mongodb').ObjectID;
 
 var busboy = require('connect-busboy'); //middleware for form/file upload
 var path = require('path');     //used for file path
@@ -67,6 +68,7 @@ let postSchema = new Schema({
   username: String,
   postText: String,
   imageURL: String,
+  likes: [String],
 }, { 
   collection: 'posts' 
 });
@@ -99,12 +101,31 @@ app.get('/home', (request, response) => {
   }
 });
 
+app.post('/like', async function(request, response){
+  var postID = request.body.postID;
+  var username = request.session.username;
+  var post = await mongoose.connection.db.collection('posts').findOne({_id: ObjectId(postID)});
+  var likes = post['likes'];
+  if(likes.includes(username)){
+    likes = likes.filter(function (u) { return u !== username })
+    mongoose.connection.db.collection('posts').updateOne({ _id: ObjectId(postID) }, { $set: { likes: likes } });
+  } else{
+    likes.push(username);
+    mongoose.connection.db.collection('posts').updateOne({_id: ObjectId(postID)}, { $set: {likes: likes}});
+  }
+  // keep for debugging:
+  //post = await mongoose.connection.db.collection('posts').findOne({ _id: ObjectId(postID) });
+  //console.log(post['likes']);
+  response.redirect('home');
+});
+
 app.get('/messages', (request, response) => {
   response.sendFile(__dirname + '/public/messages.html');
 });
 
 app.get('/api', async function (req, res) {
-  var array = await mongoose.connection.db.collection('posts').find({}).toArray();
+  // TODO: only send posts from follows
+  var array = await mongoose.connection.db.collection('posts').find().toArray();
   res.send(array);
 });
 
