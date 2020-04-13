@@ -1,5 +1,7 @@
 let express = require("express");
 let app = express();
+let http = require('http').createServer(app);
+let io = require('socket.io')(http);
 
 let session = require('express-session');
 let bodyParser = require('body-parser');
@@ -12,6 +14,30 @@ var busboy = require('connect-busboy'); //middleware for form/file upload
 var path = require('path');     //used for file path
 var fs = require('fs-extra');       //File System - for file manipulation
 app.use(busboy());
+
+app.use(express.static('public')); //used for sockets
+
+// sockets 
+let messageHistory = [];
+io.on('connection', function(socket) {
+    console.log('User connected');
+
+    for (let i = 0; i < messageHistory.length; i++) {
+        socket.emit('broadcast message', messageHistory[i]);
+    }
+
+    socket.on('disconnect', function() {
+        console.log('User disconnected');
+    });
+
+    socket.on('send message', function(data) {
+        console.log('User said: ' + data.message);
+        messageHistory.push(data);
+
+        // broadcast the message to all clients
+        io.emit('broadcast message', data);
+    });
+});
 
 
 // database config
@@ -258,6 +284,6 @@ app.post('/processLogin', (request, response) => {
 
 // web listener
 app.set('port', process.env.PORT || 3000);
-app.listen(app.get('port'), function () {
+http.listen(app.get('port'), function () {
   console.log('Server listening on port ' + app.get('port'));
 });

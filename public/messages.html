@@ -4,6 +4,7 @@
         <title>BookFace Messages</title>
         <link rel="stylesheet" href="messages.css" />
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="socketio/socket.io.js"></script>
         <script type="text/javascript" src="messages.js"></script>
     </head>
     <body>
@@ -43,6 +44,12 @@
                 </div>
                 <!-- text box goes here from javascript -->
             </div>
+        </div>
+
+        <div id="sampleMessages"></div>
+        <div id="sampleChatBox">
+            <input type="text" id="sampleMessage" placeholder="Your message"/>
+            <button id="btnSend">Send</button>
         </div>
     </body>
 </html>

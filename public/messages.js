@@ -73,4 +73,21 @@ window.onload = function() {
     for (i = 0; i < messages.length; i++){
         messages[i].children[0].onclick = function() { messagesExpand(this.parentElement) };
     }
+
+    // SAMPLE CHAT BOX
+    let socket = io();
+
+    let messageField = document.getElementById('sampleMessage');
+    let sendButton = document.getElementById('btnSend');
+    sendButton.onclick = function() {
+        socket.emit('send message', {
+            message: messageField.value,
+        });
+    };
+
+    socket.on('broadcast message', function(data) {
+        console.log('User said: ' + data.message);
+        let messages = document.getElementById('sampleMessages');
+        messages.innerHTML += '<div>' + 'User said: ' + data.message + '</div>';
+    });
 }
