@@ -272,8 +272,9 @@ header img {
 
 #articleImage {
     margin-top: 1rem;
-    margin-left: 4rem;
+    margin-left: 2.7rem;
 
     border-radius: 8px;
-    height: 200px;
+    height: auto;
+    width: 300px;
 }

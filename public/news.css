@@ -80,6 +80,8 @@ svg {
 
 #articlePic {
     padding: 1rem;
+
+    vertical-align: middle;
 }
 
 #image {
