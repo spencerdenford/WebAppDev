@@ -30,26 +30,28 @@
         </header>
 
         <div id="messages">
-            <div class="message" id="message">
+            <!-- TODO add room creator -->
+
+            <div id="roomselect">
+                <div id="roomselecttitle">Please enter name of room you'd like to join:</div>
+                <input id="roominput" type="text" name="textfield" placeholder="Type room name here:"/>
+                <a id="joinroom">Join room</a>
+            </div>
+
+            <div class="message" id="message"> <!-- this is the one room -->
                 <div id="innerMessage">
                     <img id="senderimage" src="images/mandelbrot.png" />
-                    <a id="sender">sender</a>
+                    <a id="sender">room name</a>
                     <div id="history">
 
                     </div>
-                    <div id="senttime">5:48pm</div>
-                    <div id="messagecontent">
-                        Hey buddy, hope you are doing well!
+                    <div id="prompt">
+                        Click here to send a message
                     </div>
                 </div>
                 <!-- text box goes here from javascript -->
             </div>
         </div>
 
-        <div id="sampleMessages"></div>
-        <div id="sampleChatBox">
-            <input type="text" id="sampleMessage" placeholder="Your message"/>
-            <button id="btnSend">Send</button>
-        </div>
     </body>
 </html>
