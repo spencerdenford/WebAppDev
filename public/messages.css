@@ -1,186 +1,167 @@
-let socket = io();
-
-var messagehistory = [];
-var messagetimes = [];
-
-var lastmessage;
-
-function messagesExpand(clicked) {
-    /*
-    clicked.children[0].children[2].innerHTML +=    `
-                                                    <div id="oldestsenttime">5:31pm</div>
-                                                    <div id="messagecontent"> message history1 </div>
-                                                    <div id="senttime">5:34pm</div>
-                                                    <div id="messagecontent"> message history2 </div>
-                                                    <div id="senttime">5:39pm</div>
-                                                    <div id="messagecontent"> message history3 </div>
-                                                    <div id="senttime">5:41pm</div>
-                                                    <div id="messagecontent"> message history4 </div>
-                                                    `; 
-    */
-    
-    clicked.children[0].children[2].innerHTML = "";
-    var timestr;
-
-    for (i = 0; i < messagehistory.length; i++){
-        if (i == 0){
-            timestr = "oldestsenttime";
-        }
-        else {
-            timestr = "senttime";
-        }
-        clicked.children[0].children[2].innerHTML +=    `
-                                                        <div id="${timestr}">${messagetimes[i]}</div>
-                                                        <div id="messagecontent">${messagehistory[i]}</div>
-                                                        `;
-    }
-
-    clicked.innerHTML +=    `
-                            <input type="text" name="textfield" id="sendMessage" placeholder="Type Here:" />
-                            `; // this is the text field
-
-    document.getElementById("sendMessage").onclick = function () {
-
-        this.addEventListener("keyup", function(event) {
-            // Number 13 is the "Enter" key on the keyboard
-            if ((event.keyCode === 13) && (this.value != "")) {
-                // socket.io
-                socket.emit('send message', {
-                    message: this.value,
-                });
-
-                socket.on('broadcast message', function(data) {
-                    if (data == lastmessage){
-                        return;
-                    }
-
-                    lastmessage = data;
-
-                    console.log('User said: ' + data.message);
-                    
-                    // get current date and make it correct format
-                    var d = new Date();
-                    var date = "";
-                    var minutes = "";
-
-                    if (d.getMinutes() < 10){
-                        minutes = `0${d.getMinutes()}`;
-                    }
-                    else {
-                        minutes = d.getMinutes();
-                    }
-
-                    if (d.getHours() == 0){
-                        date = `12:${minutes}am`;
-                    }
-                    else if (d.getHours() > 12){
-                        date = `${d.getHours() - 12}:${minutes}pm`;
-                    }
-                    else {
-                        date = `${d.getHours()}:${minutes}am`;
-                    }
-
-                    // add new message and date to arrays
-                    messagehistory.push(data.message);
-                    messagetimes.push(date);
-
-                    /*
-                    // this moves all conversation history up one
-                    for (i = 1; i < 7; i += 2){
-                        clicked.children[0].children[2].children[i].innerHTML = clicked.children[0].children[2].children[i + 2].innerHTML;
-                        clicked.children[0].children[2].children[i - 1].innerHTML = clicked.children[0].children[2].children[i + 1].innerHTML;
-                    }
-                    // this is so the last non anchored message is replaces
-                    clicked.children[0].children[2].children[7].innerHTML = clicked.children[0].children[4].innerHTML;
-                    clicked.children[0].children[2].children[6].innerHTML = clicked.children[0].children[3].innerHTML;
-                    // this replaces the last anchored message
-                    // TODO save time and message to db
-                    clicked.children[0].children[3].innerHTML = `${date}`;
-                    clicked.children[0].children[4].innerHTML = `${this.value}`;
-                    */
-                    
-                    // removes the prompt message and adds the sent message to the screen
-                    if (messagehistory.length == 1){
-                        clicked.children[0].children[3].remove();
-                        clicked.children[0].children[2].innerHTML +=    `
-                                                                        <div id="oldestsenttime">${messagetimes[0]}</div>
-                                                                        <div id="messagecontent">${messagehistory[0]}</div>
-                                                                        `;
-                    }
-                    else {
-                        clicked.children[0].children[2].innerHTML +=    `
-                                                                        <div id="senttime">${messagetimes[messagehistory.length - 1]}</div>
-                                                                        <div id="messagecontent">${messagehistory[messagehistory.length - 1]}</div>
-                                                                        `;
-                    }
-
-                    // add the above bloacked out code IF message history is too long
-                    var oldestsenttime;
-                    if (messagehistory.length == 10){
-                        clicked.children[0].children[2].children[0].remove();
-                        clicked.children[0].children[2].children[0].remove();
-
-                        oldestsenttime = clicked.children[0].children[2].children[0].innerHTML;
-                        
-                        clicked.children[0].children[2].innerHTML = 
-                            `<div id="oldestsenttime">${oldestsenttime}</div>`
-                            + clicked.children[0].children[2].innerHTML;
-
-                        clicked.children[0].children[2].children[1].remove();
-
-                        messagehistory.shift();
-                        messagetimes.shift();
-                    }
-                        
-                });
-
-                // set the box text back to null
-                this.value = "";
-            }
-        });
-    };
-
-    // close the message history
-    clicked.children[0].onclick = function () { 
-        // create display (most recent) message
-        if (messagehistory.length != 0){
-            this.children[2].innerHTML =    `
-                                            <div id="oldestsenttime">${messagetimes[messagehistory.length - 1]}</div>
-                                            <div id="messagecontent">${messagehistory[messagehistory.length - 1]}</div>
-                                            `;
-        }
-        // close chat box
-        this.parentElement.children[1].remove();
-
-        // call function to refresh the  
-        this.onclick = function () { messagesExpand(this.parentElement) };
-    }
+body {
+    margin: 0;
+    display: grid;
+    grid-template-rows: 6rem auto;
+    grid-template-columns: 20% 60% 20%;
 }
 
-window.onload = function() {
-    var messages = document.getElementsByClassName("message");
+header {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    margin: 5px;
 
-    // give onclick function to each new "message" which is each room
-    for (i = 0; i < messages.length; i++){
-        messages[i].children[0].onclick = function() { messagesExpand(this.parentElement) };
-    }
+    Background: #483D8B;
+}
 
-    var joinbutton = document.getElementById("joinroom");
+header img {
+    margin-left: 4rem;
+    margin-top: 1rem;
 
-    joinbutton.onclick = function(){
-        var roomname = this.parentElement.children[1].value;
-        console.log(roomname);
+    max-width:2rem;
+    height:auto;
+}
 
-        // reset room text box to nothing
-        this.parentElement.children[1].value = "";
+#title {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+    margin-right: 3rem;
 
-        // tyler work down here vvvvvv
+    font-size: 3rem;
+    color: azure;
+}
 
+#topLinks {
+    margin-right: 4rem;
+    padding: 2rem;
+    
+    text-decoration: none;
+    display: inline-block;
 
+    font-size: 1.5rem;
+    color: azure;
+}
 
+#button1 {
+    position: absolute;
+    right: 1rem;
+    top: 2rem;
 
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
 
+    background-color: white; 
+    color: black; 
+    border: 2px solid darkblue;
+}
 
-        
-    };
+#button1:hover{
+    background-color: darkblue;
+    color: white;
+}
+
+#messages {
+    grid-column: 2;
+    grid-row: 2 / span 1;
+    margin: 5px;
+
+    color: darkblue;
+
+    margin-top: 2rem;
+}
+
+#message {
+    border: 1px solid gray;
+    padding: 1rem;
+}
+
+#senderimage {
+    height: 80px;
+    width: 80px;
+
+    border-radius: 50%;
+    float: left;
+}
+
+#sender {
+    margin-left: 1rem;
+    font-size: 2rem;
+}
+
+#oldestsenttime{
+    float: right;
+    
+    padding: 0.5rem;
+}
+
+#senttime { /*one for sent one for recieved*/
+    float: right;
+    margin-top: 1rem;
+    
+    padding: 0.5rem;
+}
+
+#messagecontent {
+    margin-left: 7rem;
+
+    margin-top: 1rem;
+
+    border: 1px solid blue; /*one for sent one for recieved*/
+    border-radius: 15px;
+    padding: 0.5rem;
+}
+
+#sendMessage {
+    padding-left: 2rem;
+    margin-left: 4rem;
+    margin-top: 2rem;
+
+    height: 40px;
+
+    border-radius: 10%;
+}
+
+#prompt {
+    padding-left: 8rem;
+    padding-top: 2rem;
+}
+
+#roomselect {
+    margin: 1rem;
+}
+
+#roomselecttitle {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+#roominput {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+
+    padding: 0.5rem;
+
+    height: 2rem;
+}
+
+#joinroom {
+    margin-left: 1rem;
+    padding: 0.7rem;
+
+    border: 1px solid gray;
+    border-radius: 15px;
+
+    text-align: center;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    background: white;
+}
+
+#joinroom:hover{
+    background: #483D8B;
+    color: white;
 }
