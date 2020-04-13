@@ -22,6 +22,28 @@ header h1 {
     font-size: 250%;
 }
 
+.logout {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    background-color: white; 
+    color: black; 
+    border: 2px solid darkblue;
+}
+
+.logout:hover{
+    background-color: darkblue;
+    color: white;
+}
+
 svg {
     display: block;
     margin: auto;
