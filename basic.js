@@ -1,28 +1,17 @@
 let express = require("express");
 let app = express();
 
-/*
-var http = require('http');
-var formidable = require('formidable');
-var fs = require('fs');
-*/
-
 let session = require('express-session');
 let bodyParser = require('body-parser');
 let uuid = require('uuid/v1');
 let mongoose = require('mongoose');
 let bcrypt = require('bcrypt-nodejs');
 
-//var express = require('express');    //Express Web Server 
 var busboy = require('connect-busboy'); //middleware for form/file upload
 var path = require('path');     //used for file path
 var fs = require('fs-extra');       //File System - for file manipulation
 app.use(busboy());
 
-/*
-const fileUpload = require('express-fileupload');
-app.use(fileUpload());
-*/
 
 // database config
 mongoose.Promise = global.Promise
@@ -106,12 +95,7 @@ app.get('/messages', (request, response) => {
 
 app.get('/api', async function (req, res) {
   var array = await mongoose.connection.db.collection('posts').find({}).toArray();
-  //console.log(array[0]);
   res.send(array);
-  //console.log("Post.find():");
-  //console.log(Post.find({}));
-  //res.send(Post.find({}));
-  //res.send('{"username": "spec7", "text": "bookface lol", "imageURL":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQvMH7RDi7o82e4rg49UmWA2ipwckVcmjLv2MQJMadRLMh_GDH_"}');
 });
 
 app.get('/news', (request, response) => {
@@ -123,9 +107,11 @@ app.post('/postButton', function(req, res){
   // get the post text
   var postText = "";
   req.busboy.on('field', function (fieldname, val) {
+    console.log('field:');
+    console.log(val);
     postText = val;
   });
-
+  
   // add post to database
   req.pipe(req.busboy);
   req.busboy.on('file', function (fieldname, file, filename) {
@@ -142,7 +128,7 @@ app.post('/postButton', function(req, res){
     // add post to posts collection
     newPost = new Post({
       time: Date.now(),
-      username: "default",
+      username: req.session.username,
       postText: postText,
       imageURL: filename,
     });
@@ -155,6 +141,7 @@ app.post('/postButton', function(req, res){
     });
   });
   //res.send("localhost:3000/home");
+  res.redirect('back');
 });
 
 app.post('/createAccount', (request, response) => {

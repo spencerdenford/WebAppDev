@@ -5,12 +5,7 @@ async function reqListener(data) {
     var hostURL = "http://localhost:3000/images/useruploads/"
     for(var i = jsonData.length - 1; i > -1; i--){
         addPost(jsonData[i].username, jsonData[i].postText, hostURL + jsonData[i].imageURL, jsonData[i].time);
-        //$('#posts').append(`<div><p>${jsonData[i].username}: </p><p>${jsonData[i].postText}</p><img src=\"${hostURL}${jsonData[i].imageURL}\"/></div>`);
     }
-    //console.log(jsonData);
-    //
-    //console.log(hostURL + jsonData.imageURL);
-    //$('#posts').append(`<div><p>${jsonData.username}: </p><p>${jsonData.text}</p><img src=\"${hostURL}${jsonData.imageURL}\"/></div>`);
 }
 
 function addPost(username, postText, imageURL, postTime){
@@ -20,9 +15,12 @@ function addPost(username, postText, imageURL, postTime){
         <div id="posttime">${formatDate(postTime)}</div>
         <p id="postcontent">
             ${postText}
-        </p>
-        <p><img class="attachedpicture" id="attachedpicture" src=${imageURL} height="200" width="200"/></p>
-        <img class="likebutton" id="likebutton" src="images/heart.png" height="20" />
+        </p>`
+
+    if(imageURL != "http://localhost:3000/images/useruploads/")
+        post += `<p><img class="attachedpicture" id="attachedpicture" src=${imageURL} height="200" width="200"/></p>`
+
+    post += `<img class="likebutton" id="likebutton" src="images/heart.png" height="20" />
         <a class="likecount" id="likes">0</a>
         <img src="images/comment.png" height="20" />
         <a id="comments">0</a>
@@ -75,60 +73,11 @@ window.onload = function(){
     document.getElementById("home").onclick = function (){
         console.log("Hello World");
     }
-
-    // clear postText when user clicks into it
-    var postText = document.getElementById("postText");
-    postText.onclick = function(){
-        postText.value = "";
-    }
-    
-    // add new posts when the "post" button is clicked
-    document.getElementById("button2").onclick = function(){
-        if (postText.value != "") {
-            var d = new Date();
-            var date = formatDate(d);
-            
-            var posts = document.getElementById("posts");
-            // TODO: add all of the new information to the post from the current user.
-            posts.innerHTML =   `
-                                <div id="post">
-                                    <image id="postpic" src="images/mandelbrot.png" height="35" />
-                                    <div id="postname">Spencer</div>
-                                    <div id="posttime">${date}</div>
-                                    <p id="postcontent">
-                                        ${postText.value}
-                                    </p>
-                                    <img class="likebutton" id="likebutton" src="images/heart.png" height="20"/> 
-                                    <a class="likecount" id="likes">0</a>
-                                    <img src="images/comment.png" height="20"/>
-                                    <a id="comments">0</a>
-                                </div>
-                                `
-                                + posts.innerHTML;
-
-
-            likeButton();
-        }
-
-        postText.value = "";
-    }
-
-    /*document.getElementById("button2").onclick = function(){
-        console.log(postText.value);
-        postText.value = "";
-    }*/
     
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
     oReq.open("GET", "/api");
     oReq.send();
-
-    /*setInterval(function() {
-        var oReq = new XMLHttpRequest();
-        oReq.addEventListener("load", reqListener);
-        oReq.open("GET", "/api");
-        oReq.send();
-    }, 3000);*/
     
     likeButton();
 }
