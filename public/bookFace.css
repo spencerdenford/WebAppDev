@@ -64,13 +64,15 @@ header img {
 }
 
 #messages {
-    grid-row: 2 / span 2;
+    grid-row: 3;
     grid-column: 1;
     margin: 5px;
 
 	left: 0;
 	top: 6rem;
-	background: lightgray;
+    background: lightgray;
+    
+    border: 1px solid gray;
 }
 
 #messagesInner {
@@ -228,7 +230,10 @@ header img {
 #explore {
     grid-column: 3;
     grid-row: 2 / span 2;
-    margin: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    
+    border: 1px solid gray;
 
 	background: lightgray;
 }
@@ -245,11 +250,6 @@ header img {
     padding: 1rem;
     
     border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
-}
-
-#articleDetails {
-    padding-bottom: 0.5rem;
     border-bottom: 1px solid gray;
 }
 
@@ -272,11 +272,10 @@ header img {
 
 #articleImage {
     margin-top: 1rem;
-    margin-left: 2.7rem;
+    margin-left: 4rem;
 
     border-radius: 8px;
-    height: auto;
-    width: 300px;
+    height: 200px;
 }
 
 #profilewrap {
