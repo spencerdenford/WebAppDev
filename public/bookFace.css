@@ -248,6 +248,11 @@ header img {
     border-bottom: 1px solid gray;
 }
 
+#articleDetails {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid gray;
+}
+
 #articleTitle {
     margin-left: 1rem;
 

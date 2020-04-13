@@ -25,6 +25,7 @@
     "formidable": "^1.2.2",
     "fs-extra": "^9.0.0",
     "mongoose": "^5.9.7",
+    "socket.io": "^2.3.0",
     "uuid": "^7.0.3"
   }
 }
