@@ -64,13 +64,15 @@ header img {
 }
 
 #messages {
-    grid-row: 2 / span 2;
+    grid-row: 3;
     grid-column: 1;
     margin: 5px;
 
 	left: 0;
 	top: 6rem;
-	background: lightgray;
+    background: lightgray;
+    
+    border: 1px solid gray;
 }
 
 #messagesInner {
@@ -228,7 +230,10 @@ header img {
 #explore {
     grid-column: 3;
     grid-row: 2 / span 2;
-    margin: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    
+    border: 1px solid gray;
 
 	background: lightgray;
 }
@@ -245,11 +250,6 @@ header img {
     padding: 1rem;
     
     border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
-}
-
-#articleDetails {
-    padding-bottom: 0.5rem;
     border-bottom: 1px solid gray;
 }
 
@@ -277,4 +277,44 @@ header img {
     border-radius: 8px;
     height: auto;
     width: 300px;
+}
+
+#profilewrap {
+    grid-row: 2;
+    grid-column: 1;
+    margin-right: 5px;
+    margin-left: 5px;
+
+    background: lightgray;
+    
+    border: 1px solid gray;
+    text-decoration: none;
+}
+
+#profile{
+    font-size: 2rem;
+    padding-left: 1rem;  
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    color: black;
+} 
+
+#profilepicture {
+    height: 60px;
+    width: 60px;
+
+    border-radius: 50%;
+
+    margin-left: 1rem;
+
+    float: left;
+}
+
+#username {
+    color: black;
+
+    margin-left: 6rem;
+    margin-top: 1.5rem;
 }

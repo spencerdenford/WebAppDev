@@ -1,0 +1,144 @@
+body {
+    margin: 0;
+    display: grid;
+    grid-template-rows: 6rem auto;
+    grid-template-columns: 15% 50% 35%;
+}
+
+header {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    margin: 5px;
+
+    Background: #483D8B;
+}
+
+header img {
+    margin-left: 4rem;
+    margin-top: 1rem;
+
+    max-width:2rem;
+    height:auto;
+}
+
+#title {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+    margin-right: 3rem;
+
+    font-size: 3rem;
+    color: azure;
+}
+
+#topLinks {
+    margin-right: 4rem;
+    padding: 2rem;
+    
+    text-decoration: none;
+    display: inline-block;
+
+    font-size: 1.5rem;
+    color: azure;
+}
+
+#button1 {
+    position: absolute;
+    right: 1rem;
+    top: 2rem;
+
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    background-color: white; 
+    color: black; 
+    border: 2px solid darkblue;
+}
+
+#button1:hover{
+    background-color: darkblue;
+    color: white;
+}
+
+#page {
+    grid-column: 2;
+    grid-row: 2;
+    margin: 5px;
+
+    padding-top: 1rem;
+}
+
+#profilepicture {
+    height: 200px;
+    width: 200px;
+
+    border-radius: 50%;
+
+}
+
+#biography {
+    float: left;
+
+    margin-top: -4rem;
+    margin-right: 6rem;
+    margin-left: 14rem;
+}
+
+#username {
+    font-size: 4rem;
+    margin-right: 10rem;
+    margin-top: 2rem;
+
+    float: right;
+}
+
+#pageheader{
+    padding-bottom: 2rem;
+    border-bottom: 1px solid gray;
+}
+
+#friends {
+    grid-column: 3;
+    grid-row: 2;
+    margin: 5px;
+
+    background: lightgray;
+
+    padding: 1rem;
+}
+
+#friendstitle{
+    font-size: 2.5rem;
+
+    padding-bottom: 1rem;
+
+    border-bottom: 1px solid gray;
+}
+
+#profilewrap {
+    padding-top: 1rem;
+    
+    padding-bottom: 1rem;
+
+    border-bottom: 1px solid gray;
+}
+
+#friendprofilepicture {
+    height: 60px;
+    width: 60px;
+
+    border-radius: 50%;
+
+    margin-left: 1rem;
+
+    vertical-align: middle;
+}
+
+#friendusername {
+    color: black;
+
+    margin-left: 1rem;
+}

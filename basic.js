@@ -133,6 +133,10 @@ app.get('/news', (request, response) => {
   response.sendFile(__dirname + '/public/news.html');
 });
 
+app.get('/profile', (request, response) => {
+  response.sendFile(__dirname + '/public/profile.html');
+});
+
 // add post to posts collection when user clicks post
 app.post('/postButton', function(req, res){
   // get the post text
