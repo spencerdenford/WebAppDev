@@ -191,6 +191,18 @@ header img {
     float: bottom;
 }
 
+#fileimage{
+    background-image: url("/images/image.png");
+    background-repeat: no-repeat;
+    background-position: left top;
+    padding-left: 40px;
+    padding-bottom: 20px;
+    width: 0px;
+    float: left;
+    margin-top: 0.5rem;
+    margin-left: 1.5rem;
+}
+
 #button2 {
     font-size: 1.05rem;
     border-radius: 0.5rem;
