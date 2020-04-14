@@ -129,11 +129,23 @@ app.get('/api', async function (req, res) {
   res.send(array);
 });
 
+app.get('/getUserPosts', async function (req, res) {
+  //console.log('profile view: ' + req.query.user);
+  var user = req.query.user;
+  var array = await mongoose.connection.db.collection('posts').find({ username: user}).toArray();
+  res.send(array);
+});
+
 app.get('/news', (request, response) => {
   response.sendFile(__dirname + '/public/news.html');
 });
 
 app.get('/profile', (request, response) => {
+  user = request.query.user;
+  if (user == undefined || user == "") {
+    response.redirect('/profile?user=' + request.session.username);
+    //user = req.session.username;
+  }
   response.sendFile(__dirname + '/public/profile.html');
 });
 
