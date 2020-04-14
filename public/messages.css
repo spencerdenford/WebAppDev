@@ -123,3 +123,45 @@ header img {
 
     border-radius: 10%;
 }
+
+#prompt {
+    padding-left: 8rem;
+    padding-top: 2rem;
+}
+
+#roomselect {
+    margin: 1rem;
+}
+
+#roomselecttitle {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+#roominput {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+
+    padding: 0.5rem;
+
+    height: 2rem;
+}
+
+#joinroom {
+    margin-left: 1rem;
+    padding: 0.7rem;
+
+    border: 1px solid gray;
+    border-radius: 15px;
+
+    text-align: center;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    background: white;
+}
+
+#joinroom:hover{
+    background: #483D8B;
+    color: white;
+}

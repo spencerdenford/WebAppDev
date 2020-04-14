@@ -59,16 +59,13 @@
         </div>
 
         <form method="post" action="postButton" id="composePost" enctype="multipart/form-data">
-            <input type="text" name="textfield" id="postText" href="/composePost" placeholder="Type Here:"></input>
+            <input type="text" name="textfield" id="postText" href="/composePost" placeholder="Type Here:"/>
             <img id="composePicture" src="images/mandelbrot.png"/>
 
-            <div>
-                <img id="composeIcon" src="images/image.png"/>
-                <input type="file" name="filetoupload"/>
-                <!--<img id="composeIcon" src="images/camera.png"/>-->
-                <input type="submit" id="button2" value="Post">
-                </input>
-            </div>  
+            
+            <input id="fileimage" type="file" name="filetoupload"/>
+            <!--<img id="composeIcon" src="images/camera.png"/>-->
+            <input type="submit" id="button2" value="Post"/>
         </form>
         
         <div id="feed">
