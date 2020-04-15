@@ -101,7 +101,6 @@ header img {
 
 #senttime { /*one for sent one for recieved*/
     float: right;
-    margin-top: 1rem;
     
     padding: 0.5rem;
 }
@@ -109,17 +108,20 @@ header img {
 #messagecontent {
     margin-left: 7rem;
 
-    margin-top: 1rem;
+    margin-bottom: 1rem;
 
     border: 1px solid blue; /*one for sent one for recieved*/
     border-radius: 15px;
     padding: 0.5rem;
 }
 
+#history{
+    margin-top: 1rem;
+}
+
 #sendMessage {
     padding-left: 2rem;
     margin-left: 4rem;
-    margin-top: 2rem;
 
     height: 40px;
 
@@ -128,7 +130,7 @@ header img {
 
 #prompt {
     padding-left: 8rem;
-    padding-top: 2rem;
+    padding-bottom: 1rem;
 }
 
 #roomSelect {
