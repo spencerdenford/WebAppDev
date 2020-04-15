@@ -1,3 +1,4 @@
+var sessionUsername;
 
 async function reqListener(data) {
     //data = this.responseText;
@@ -29,7 +30,7 @@ function addPost(username, postText, imageURL, postTime, postID, numLikes){
     }*/ // TODO fix this. i need to find my username
 
     // this big block displays the actual original post to the page
-    var post =  `
+    var postHTML =  `
                 <div id="post">
                     <image id="postpic" src="images/mandelbrot.png" height="35" />
                     <div id="postname">${username}</div>
@@ -42,7 +43,7 @@ function addPost(username, postText, imageURL, postTime, postID, numLikes){
                         <input type="hidden" name="postID" id="test" value="${postID}">
                         <button class="likebutton" type="submit" formaction="/like" style="background:transparent; border:none; color:transparent;"><img src="images/heart.png" height="20"></button>
                         <a class="likecount" id="likes">${numLikes.length}</a>
-                        <a class="commentbutton" type="submit"      style="background:transparent; border:none; color:transparent;">
+                        <a class="commentbutton" type="submit" style="background:transparent; border:none; color:transparent;">
                             <img src="images/comment.png" height="20">
                         </a>
                         <a id="comments">0</a>
@@ -51,10 +52,12 @@ function addPost(username, postText, imageURL, postTime, postID, numLikes){
                 </div>
                 `; // href="/comment?id=${postID}"
 
-    // add the post to thee html
-    $('#posts').append(post);
+    // add the post to the html
+    $('#posts').append(postHTML);
 
-    commentButton($('#posts')[0].children[$('#posts')[0].children.length - 1]);
+    // first element will be the post which was just appended
+    var post = $('#posts')[0].children[$('#posts')[0].children.length - 1];
+    commentButton(post);
 }
 
 function formatDate(d){
@@ -105,20 +108,22 @@ function likeButton() { // fix this lol
 }
 
 function commentButton(post){
-    post.children[5].children[3].onclick = function(){
+    var commentButton = post.children[5].children[3];
+    commentButton.onclick = function(){
         // add input box
         post.innerHTML +=   `
-                            <div id="commentwrap">
-                                <input id="commentmessage" type="text" name="textfield" placeholder="Type comment here:"/>
-                                <a id="postbutton">Post</a>
-                            </div>`;
+            <div id="commentwrap">
+                <input id="commentmessage" type="text" name="textfield" placeholder="Type comment here:"/>
+                <a id="postbutton">Post</a>
+            </div>`;
 
-        post.children[post.childElementCount - 1].children[1].onclick = function() {
-            var comment = post.children[post.childElementCount - 1].children[0].value;
+        var comments = post.children[post.childElementCount - 1];
+        comments.children[1].onclick = function() {
+            var comment = comments.children[0].value;
 
             if (comment != ""){
                 // erase the text box by removing its surrounding div tag
-                post.children[post.childElementCount - 1].remove();
+                comments.remove();
 
                 // add the comment to the html
                 post.innerHTML += `
@@ -128,7 +133,6 @@ function commentButton(post){
                         <div id="posttime">${formatDate(new Date())}</div>
                         <p id="postcontent">Re: ${comment}</p>
                     </div>`;
-
             }
 
             // call commentButton again to allow multiple comments
@@ -137,11 +141,23 @@ function commentButton(post){
     }
 }
 
-window.onload = function(){    
+function getUsername(data){
+    var sessionUsername = data.srcElement.responseText;
+    console.log('got username: ' + sessionUsername);
+}
+
+window.onload = function(){
+    // Get posts from server 
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
     oReq.open("GET", "/api");
     oReq.send();
+
+    // Get username from server
+    var usernameReq = new XMLHttpRequest();
+    usernameReq.addEventListener("load", getUsername);
+    usernameReq.open("GET", "/getUsername");
+    usernameReq.send();
     
     // call likeButton and commentButton to add the onclick function to all the posts already on screen
     likeButton(); // <- maybe remove

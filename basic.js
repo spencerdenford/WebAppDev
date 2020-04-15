@@ -145,6 +145,10 @@ app.get('/home', (request, response) => {
   }
 });
 
+app.get('/getUsername', function(request, response){
+  response.send(request.session.username);
+});
+
 app.post('/like', async function(request, response){
   var postID = request.body.postID;
   var username = request.session.username;
