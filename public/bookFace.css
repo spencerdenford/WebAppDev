@@ -3,14 +3,18 @@ body {
     display: grid;
     grid-template-rows: 6rem 10rem auto;
     grid-template-columns: 20% 50% 30%;
+
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
     grid-column: 1 / span 3;
     grid-row: 1;
-    margin: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
 
-    Background: #483D8B;
+    Background: darkslateblue;
 }
 
 header img {
@@ -66,13 +70,14 @@ header img {
 #messages {
     grid-row: 3;
     grid-column: 1;
-    margin: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
 
 	left: 0;
 	top: 6rem;
-    background: lightgray;
+    background: lavender;
     
-    border: 1px solid gray;
+    border-right: 1px solid lightsteelblue;
 }
 
 #messagesInner {
@@ -128,9 +133,8 @@ header img {
 }
 
 #post {
-    border: 1px solid gray;
+    border-bottom: 1px solid gray;
     padding: 1rem;
-    margin-bottom: 1rem;
 }
 
 #postpic {
@@ -158,6 +162,7 @@ header img {
 #composePost {
     grid-column: 2;
     grid-row: 2;
+    margin-top: 5px;
 
     padding: 1rem;
 
@@ -178,6 +183,7 @@ header img {
 
 #postText {
     margin-left: 1rem;
+    margin-right: 2rem;
     width: 70%;
     height: 5rem;
 
@@ -194,7 +200,6 @@ header img {
 #fileimage{
     background-image: url("/images/image.png");
     background-repeat: no-repeat;
-    background-position: left top;
     padding-left: 40px;
     padding-bottom: 20px;
     width: 0px;
@@ -226,9 +231,6 @@ header img {
     color: white;
 }
 
-
-
-
 #feed {
     grid-column: 2;
     grid-row: 3;
@@ -237,17 +239,15 @@ header img {
 
 }
 
-
-
 #explore {
     grid-column: 3;
     grid-row: 2 / span 2;
     margin-left: 5px;
     margin-right: 5px;
     
-    border: 1px solid gray;
+    border-left: 1px solid lightsteelblue;
 
-	background: lightgray;
+	background: lavender;
 }
 
 #exploretitle {
@@ -297,9 +297,10 @@ header img {
     margin-right: 5px;
     margin-left: 5px;
 
-    background: lightgray;
+    background: lavender;
     
-    border: 1px solid gray;
+    border-right: 1px solid lightsteelblue;
+    border-bottom: 1px solid lightsteelblue;
     text-decoration: none;
 }
 
@@ -329,4 +330,37 @@ header img {
 
     margin-left: 6rem;
     margin-top: 1.5rem;
+}
+
+#commentwrap{
+    margin: 1rem;
+    padding-top: 1rem;
+}
+
+#commentmessage {
+    padding: 1rem;
+}
+
+#postbutton {
+    margin-left: 1rem;
+    padding: 0.7rem;
+    
+    text-align: center;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    border: 1px solid darkblue;
+    border-radius: 20%;
+}
+
+#postbutton:hover {
+    background: darkblue;
+    color: white;
+}
+
+#comment{
+    margin-top: 1rem;
+    padding: 1rem;
+
+    border: 1px solid gray;
 }
