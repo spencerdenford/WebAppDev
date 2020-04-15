@@ -1,95 +1,150 @@
+
 async function reqListener(data) {
     //data = this.responseText;
     var jsonData = JSON.parse(this.responseText);
-    console.log(jsonData);
     var hostURL = "http://localhost:3000/images/useruploads/"
+
     for(var i = jsonData.length - 1; i > -1; i--){
+        // for each post entry we add the post to the website!
         addPost(jsonData[i].username, 
             jsonData[i].postText, 
             hostURL + jsonData[i].imageURL, 
             jsonData[i].time, 
             jsonData[i]._id,
-            jsonData[i].likes.length,
+            jsonData[i].likes,
         );
     }
 }
 
 function addPost(username, postText, imageURL, postTime, postID, numLikes){
-    var post = `<div id="post">
-        <image id="postpic" src="images/mandelbrot.png" height="35" />
-        <div id="postname">${username}</div>
-        <div id="posttime">${formatDate(postTime)}</div>
-        <p id="postcontent">
-            ${postText}
-        </p>`
+    // if an image exists in the post we want to add it to the post. otherwise we want image to remain an empty string
+    var image = "";
+    if(imageURL != "http://localhost:3000/images/useruploads/"){
+        image = `<p><img class="attachedpicture" id="attachedpicture" src=${imageURL} height="200" width="200"/></p>`;
+    }
 
-    if(imageURL != "http://localhost:3000/images/useruploads/")
-        post += `<p><img class="attachedpicture" id="attachedpicture" src=${imageURL} height="200" width="200"/></p>`
+    /*var iLikedImg = "";
+    if(myUsername in numLikes){
+        console.log("I have liked this!");
+    }*/ // TODO fix this. i need to find my username
 
-    post += `
-        <form method="POST">
-            <input type="hidden" name="postID" id="test" value="${postID}">
-            <button type="submit" formaction="/like" style="background:transparent; border:none; color:transparent;"><img src="images/heart.png" height="20"></button>
-            <a class="likecount" id="likes">${numLikes}</a>
-            <button type="submit" formaction="/comment" style="background:transparent; border:none; color:transparent;"><img src="images/comment.png" height="20"></button>
-            <a id="comments">0</a>
-        </form>
-        <!--share button-->
-    </div>`;
+    // this big block displays the actual original post to the page
+    var post =  `
+                <div id="post">
+                    <image id="postpic" src="images/mandelbrot.png" height="35" />
+                    <div id="postname">${username}</div>
+                    <div id="posttime">${formatDate(postTime)}</div>
+                    <p id="postcontent">${postText}</p>
+                    <div>
+                        ${image}
+                    </div> 
+                    <form method="POST">
+                        <input type="hidden" name="postID" id="test" value="${postID}">
+                        <button class="likebutton" type="submit" formaction="/like" style="background:transparent; border:none; color:transparent;"><img src="images/heart.png" height="20"></button>
+                        <a class="likecount" id="likes">${numLikes.length}</a>
+                        <a class="commentbutton" type="submit"      style="background:transparent; border:none; color:transparent;">
+                            <img src="images/comment.png" height="20">
+                        </a>
+                        <a id="comments">0</a>
+                    </form>
+                    <!--share button-->
+                </div>
+                `; // href="/comment?id=${postID}"
+
+    // add the post to thee html
     $('#posts').append(post);
+
+    commentButton($('#posts')[0].children[$('#posts')[0].children.length - 1]);
 }
 
-function likeButton() {
-    var likes = document.getElementsByClassName("likebutton");
+function formatDate(d){
+    // this function returns the post's date in a from we want to display
+    var date = new Date(d);
+    var dateString = "";
+    var mins = "";
 
-    for (i = 0; i < likes.length; i++){
-        likes[i].onclick = function() {
-            //console.log(this.parentElement.children[5]);
-            if (this.src == "http://localhost:3000/images/heart.png"){
-                this.src = "http://localhost:3000/images/hearted.png";
-                this.parentElement.children[5].innerHTML = parseInt(this.parentElement.children[5].innerHTML) + 1;
-                // TODO: increment like count in database
+    // this is to ensure if it's x:00 we display x:00 instead of x:0 which is the default of getMinutes()
+    if (date.getMinutes() < 10){
+        mins = `0${date.getMinutes()}`;
+    }
+    else {
+        mins = date.getMinutes();
+    }
+
+    // here we decide how to display the hour (0 is 12am and we don't want a 24 hour clock)
+    if (date.getHours() == 0) {
+        dateString += `12:${mins}am `;
+    }
+    else if (date.getHours() < 12) {
+        dateString += `${date.getHours()}:${mins}am `;
+    }
+    else {
+        dateString += `${date.getHours() - 12}:${mins}pm `;
+    }
+
+    // add the date
+    dateString += `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+
+    return dateString;
+}
+
+function likeButton() { // fix this lol
+    /*
+    // when each like button is clicked we increment that image's 
+    if (this.src == "http://localhost:3000/images/heart.png"){
+        this.src = "http://localhost:3000/images/hearted.png";
+        this.parentElement.children[5].innerHTML = parseInt(this.parentElement.children[5].innerHTML) + 1;
+    }
+    else{
+        this.src = "http://localhost:3000/images/heart.png";
+        // 5 because that is the index of the "likecount" element
+        this.parentElement.children[5].innerHTML = parseInt(this.parentElement.children[5].innerHTML) - 1; 
+        // TODO: decrement like count in database
+    }
+    */
+}
+
+function commentButton(post){
+    post.children[5].children[3].onclick = function(){
+        // add input box
+        post.innerHTML +=   `
+                            <div id="commentwrap">
+                                <input id="commentmessage" type="text" name="textfield" placeholder="Type comment here:"/>
+                                <a id="postbutton">Post</a>
+                            </div>`;
+
+        post.children[post.childElementCount - 1].children[1].onclick = function() {
+            var comment = post.children[post.childElementCount - 1].children[0].value;
+
+            if (comment != ""){
+                // erase the text box by removing its surrounding div tag
+                post.children[post.childElementCount - 1].remove();
+
+                // add the comment to the html
+                post.innerHTML += `
+                    <div id="comment">
+                        <image id="postpic" src="images/mandelbrot.png" height="35" />
+                        <div id="postname">${"username"}</div>
+                        <div id="posttime">${formatDate(new Date())}</div>
+                        <p id="postcontent">Re: ${comment}</p>
+                    </div>`;
+
             }
-            else{
-                this.src = "http://localhost:3000/images/heart.png";
-                // 5 because that is the index of the "likecount" element
-                this.parentElement.children[5].innerHTML = parseInt(this.parentElement.children[5].innerHTML) - 1; 
-                // TODO: decrement like count in database
-            }
+
+            // call commentButton again to allow multiple comments
+            commentButton(post);
         }
     }
 }
 
-function formatDate(d){
-    var date = new Date(d);
-    var dateString = "";
-    if (date.getHours() == 0) {
-        dateString += "12:" + (date.getMinutes()) + "am "
-    }
-    else if (date.getHours() < 12) {
-        dateString += (date.getHours()) + ":" + (date.getMinutes()) + "am ";
-    }
-    else {
-        dateString += (date.getHours() - 12) + ":" + (date.getMinutes()) + "pm ";
-    }
-    dateString += (date.getDate()) + "/" + (date.getMonth()) + "/" + (date.getFullYear());
-    return dateString;
-}
-
-window.onload = function(){
-    // call likeButton to add the onclick function to all the posts already on screen
-    likeButton();
-    
-    document.getElementById("home").onclick = function (){
-        console.log("Hello World");
-    }
-    
+window.onload = function(){    
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
     oReq.open("GET", "/api");
     oReq.send();
     
-    likeButton();
+    // call likeButton and commentButton to add the onclick function to all the posts already on screen
+    likeButton(); // <- maybe remove
 }
 
 $(document).ready(function() {
