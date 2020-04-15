@@ -12,36 +12,38 @@
             <a class="navbar-item" href="/home">
                 <img src="images/bookFACE.png" id="home" alt="BookFace"/>
             </a>
-            <a id="title">
-                mesSagES
+            <a id="title" href="/home">
+                Bookface
             </a>
             <a id="topLinks" href="/home">
-                home
+                Home
             </a>
-            <a id="topLinks" href="/messages">
-                messages
+            <a id="topLinks" href="/profile">
+                Profile
             </a>
-            <a id="topLinks" href="#">
-                search
+            <a id="topLinks" href="/news">
+                News
             </a>
-            <button id="button1">
-                Log Out
-            </button>
+            <form action="/logout">
+                <button id="button1">
+                    Log Out
+                </button>
+            </form>
         </header>
 
         <div id="messages">
             <!-- TODO add room creator -->
 
-            <div id="roomselect">
-                <div id="roomselecttitle">Please enter name of room you'd like to join:</div>
-                <input id="roominput" type="text" name="textfield" placeholder="Type room name here:"/>
-                <a id="joinroom">Join room</a>
+            <div id="roomSelect">
+                <div id="roomSelectTitle">Please enter the name of room you would like to join:</div>
+                <input id="roomInput" type="text" name="textfield" placeholder="Enter room name:"/>
+                <a id="joinRoom">Join room</a>
             </div>
 
             <div class="message" id="message"> <!-- this is the one room -->
                 <div id="innerMessage">
-                    <img id="senderimage" src="images/mandelbrot.png" />
-                    <a id="sender">room name</a>
+                    <img id="roomimage" src="images/mandelbrot.png" />
+                    <a id="roomName"></a>
                     <div id="history">
 
                     </div>

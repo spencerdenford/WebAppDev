@@ -1,9 +1,9 @@
-let socket = io();
-
 var messagehistory = [];
 var messagetimes = [];
-
 var lastmessage;
+
+const socket = io();
+var roomName = "";
 
 function messagesExpand(clicked) {
     /*
@@ -42,21 +42,28 @@ function messagesExpand(clicked) {
     document.getElementById("sendMessage").onclick = function () {
 
         this.addEventListener("keyup", function(event) {
+            //console.log("testing");
             // Number 13 is the "Enter" key on the keyboard
             if ((event.keyCode === 13) && (this.value != "")) {
                 // socket.io
                 socket.emit('send message', {
+                    room: roomName,
                     message: this.value,
+                    username: null,
                 });
 
+                //console.log("testing2");
+
                 socket.on('broadcast message', function(data) {
+                    //console.log("CLIENT - Broadcast working");
+                    console.log(data.message);
                     if (data == lastmessage){
                         return;
                     }
 
                     lastmessage = data;
 
-                    console.log('User said: ' + data.message);
+                    //console.log('CLIENT - User said: ' + data.message);
                     
                     // get current date and make it correct format
                     var d = new Date();
@@ -165,22 +172,35 @@ window.onload = function() {
         messages[i].children[0].onclick = function() { messagesExpand(this.parentElement) };
     }
 
-    var joinbutton = document.getElementById("joinroom");
+    var joinbutton = document.getElementById("joinRoom");
+    var oldRoom = null;
 
     joinbutton.onclick = function(){
-        var roomname = this.parentElement.children[1].value;
-        console.log(roomname);
+        //Displaying the chatbox for the room
+        var chatBox = document.getElementById("message");
+        chatBox.style.display = "block";
 
-        // reset room text box to nothing
+        //Checking if user has previously joined a room, if so, disconnect from the previous room
+        if (oldRoom != null) {
+            socket.emit('leave room', {
+                room: oldRoom,
+            });
+        }
+
+        roomName = this.parentElement.children[1].value;
+        //console.log("Client - User joined room: " + roomName);
+
+        //Changing name of room
+        document.getElementById("roomName").textContent = roomName;
+
+        //Resets room text box to nothing
         this.parentElement.children[1].value = "";
 
-        // tyler work down here vvvvvv
+        //Joins the socket to the given room
+        socket.emit('join room', {
+            room: roomName,
+        });
 
-
-
-
-
-
-        
+        oldRoom = roomName;
     };
 }

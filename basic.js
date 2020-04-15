@@ -31,11 +31,29 @@ io.on('connection', function(socket) {
     });
 
     socket.on('send message', function(data) {
-        console.log('User said: ' + data.message);
+        //data.username = request.session.username;
+
+        console.log('Server - User said: ' + data.message);
+        console.log('Server - User is in room: ' + data.room);
+        console.log("Server - Username: " + data.username);
+
         messageHistory.push(data);
 
         // broadcast the message to all clients
-        io.emit('broadcast message', data);
+        //io.emit('broadcast message', data);
+
+        // sends message to all users in the specific room, including the sender
+        io.in(data.room).emit('broadcast message', data);
+    });
+
+    socket.on('join room', function(data) {
+      console.log("Joining room: " + data.room);
+      socket.join(data.room);
+    });
+
+    socket.on('leave room', function(data) {
+      console.log("Leaving room: " + data.room);
+      socket.leave(data.room);
     });
 });
 

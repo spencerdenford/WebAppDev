@@ -74,11 +74,13 @@ header img {
 }
 
 #message {
+    display: none;
+    
     border: 1px solid gray;
     padding: 1rem;
 }
 
-#senderimage {
+#roomimage {
     height: 80px;
     width: 80px;
 
@@ -86,7 +88,7 @@ header img {
     float: left;
 }
 
-#sender {
+#roomName {
     margin-left: 1rem;
     font-size: 2rem;
 }
@@ -129,16 +131,16 @@ header img {
     padding-top: 2rem;
 }
 
-#roomselect {
+#roomSelect {
     margin: 1rem;
 }
 
-#roomselecttitle {
+#roomSelectTitle {
     font-size: 2rem;
     margin-bottom: 1rem;
 }
 
-#roominput {
+#roomInput {
     margin-left: 2rem;
     margin-bottom: 1rem;
 
@@ -147,7 +149,7 @@ header img {
     height: 2rem;
 }
 
-#joinroom {
+#joinRoom {
     margin-left: 1rem;
     padding: 0.7rem;
 
@@ -161,7 +163,7 @@ header img {
     background: white;
 }
 
-#joinroom:hover{
+#joinRoom:hover{
     background: #483D8B;
     color: white;
 }
