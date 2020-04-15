@@ -1,3 +1,43 @@
+.navbar {
+    Background: #483D8B;
+}
+
+.logo {
+    margin-left: 1rem;
+    width: 3%;
+}
+
+.title {
+    color: white;
+    margin: 1rem;
+}
+
+.title:hover {
+    color: white;
+}
+
+.logout {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    background-color: white; 
+    color: black; 
+    border: 2px solid darkblue;
+}
+
+.logout:hover{
+    background-color: darkblue;
+    color: white;
+}
+
 body {
     margin: 0;
     display: grid;
@@ -8,17 +48,9 @@ body {
 header {
     grid-column: 1 / span 3;
     grid-row: 1;
-    margin: 5px;
+    margin-bottom: 20px;
 
     Background: #483D8B;
-}
-
-header img {
-    margin-left: 4rem;
-    margin-top: 1rem;
-
-    max-width:2rem;
-    height:auto;
 }
 
 #title {
@@ -27,17 +59,6 @@ header img {
     margin-right: 3rem;
 
     font-size: 3rem;
-    color: azure;
-}
-
-#topLinks {
-    margin-right: 4rem;
-    padding: 2rem;
-    
-    text-decoration: none;
-    display: inline-block;
-
-    font-size: 1.5rem;
     color: azure;
 }
 
@@ -143,7 +164,7 @@ header img {
 }
 
 #roomInput {
-    margin-left: 2rem;
+    
     margin-bottom: 1rem;
 
     padding: 0.5rem;

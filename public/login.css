@@ -21,6 +21,14 @@
     font-size: large;
 }
 
+.messageSuccess {
+    font-weight: bold;
+    font-size: 150%;
+    text-align: center;
+
+    margin-top: 10rem;
+}
+
 .create {
     position: absolute;
     right: 1rem;
