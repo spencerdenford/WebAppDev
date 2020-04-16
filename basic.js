@@ -129,7 +129,11 @@ app.post('/like', async function(request, response){
 });
 
 app.get('/messages', (request, response) => {
-  response.sendFile(__dirname + '/public/messages.html');
+  if(request.session.username != undefined){
+    response.sendFile(__dirname + '/public/messages.html');
+  }else{
+    response.redirect('/login');
+  }
 });
 
 app.get('/api', async function (req, res) {
@@ -146,7 +150,11 @@ app.get('/getUserPosts', async function (req, res) {
 });
 
 app.get('/news', (request, response) => {
-  response.sendFile(__dirname + '/public/news.html');
+  if(request.session.username != undefined){
+    response.sendFile(__dirname + '/public/news.html');
+  }else{
+    response.redirect('/login');
+  }
 });
 
 app.get('/profile', (request, response) => {
