@@ -1,50 +1,25 @@
-body {
-    margin: 0;
-    display: grid;
-    grid-template-rows: 6rem auto;
-    grid-template-columns: 15% 50% 35%;
-}
-
-header {
-    grid-column: 1 / span 3;
-    grid-row: 1;
-    margin: 5px;
-
+.navbar {
     Background: #483D8B;
 }
 
-header img {
-    margin-left: 4rem;
-    margin-top: 1rem;
-
-    max-width:2rem;
-    height:auto;
-}
-
-#title {
+.logo {
     margin-left: 1rem;
-    margin-bottom: 0.5rem;
-    margin-right: 3rem;
-
-    font-size: 3rem;
-    color: azure;
+    width: 3%;
 }
 
-#topLinks {
-    margin-right: 4rem;
-    padding: 2rem;
-    
-    text-decoration: none;
-    display: inline-block;
-
-    font-size: 1.5rem;
-    color: azure;
+.title {
+    color: white;
+    margin: 1rem;
 }
 
-#button1 {
+.title:hover {
+    color: white;
+}
+
+.logout {
     position: absolute;
     right: 1rem;
-    top: 2rem;
+    top: 1rem;
 
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
@@ -58,9 +33,24 @@ header img {
     border: 2px solid darkblue;
 }
 
-#button1:hover{
+.logout:hover{
     background-color: darkblue;
     color: white;
+}
+
+body {
+    margin: 0;
+    display: grid;
+    grid-template-rows: 6rem auto;
+    grid-template-columns: 15% 50% 35%;
+}
+
+header {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    margin-bottom: 20px;
+
+    Background: #483D8B;
 }
 
 #page {
