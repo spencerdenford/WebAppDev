@@ -90,7 +90,7 @@ function messagesExpand(clicked) {
     }
     
     // call function to give the onclick function to any newly generated text boxes
-    clicked.children[0].onclick = function () { messagesExpand(this.parentElement) };
+    //clicked.children[0].onclick = function () { messagesExpand(this.parentElement) };
 }
 
 function formatDate(){
