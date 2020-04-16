@@ -127,13 +127,20 @@ header {
 }
 
 #messagecontent {
-    margin-left: 7rem;
-
     margin-bottom: 1rem;
+    margin-left: 7rem;
 
     border: 1px solid blue; /*one for sent one for recieved*/
     border-radius: 15px;
     padding: 0.5rem;
+}
+
+.sent {
+    background: lightblue;
+}
+
+.recieved {
+    background: white;
 }
 
 #history{
