@@ -62,31 +62,36 @@ header {
 }
 
 #profilepicture {
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
 
     border-radius: 50%;
+
+    float: left;
 }
 
 #biography {
-    float: left;
-
-    margin-top: -4rem;
-    margin-right: 6rem;
     margin-left: 14rem;
 }
 
-#username {
-    font-size: 4rem;
-    margin-right: 10rem;
-    margin-top: 2rem;
-
+#edit{
     float: right;
+    margin-right: 1rem;
+}
+
+#username {
+    font-size: 3rem;
+    margin-left: 10rem;
+    margin-top: 2rem;
 }
 
 #pageheader{
     padding-bottom: 2rem;
-    border-bottom: 1px solid gray;
+}
+
+#posts {
+    border-top: 1px solid gray;
+    margin-top: 3rem;
 }
 
 #post {

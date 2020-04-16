@@ -6,8 +6,9 @@ async function reqListener(data) {
     //data = this.responseText;
     var jsonData = JSON.parse(this.responseText);
     var hostURL = "http://localhost:3000/images/useruploads/"
+    console.log(jsonData);
 
-    for(var i = 0; i < jsonData.length - 2; i++){
+    for(var i = 0; i < jsonData.length; i++){
         // for each post entry we add the post to the website!
         addPostToPage(
             jsonData[i].username,
@@ -129,8 +130,8 @@ function commentButton(post, postID){
                 // add the new comment to the html
                 post.innerHTML += `
                     <div id="comment">
-                        <image id="postpic" src="images/mandelbrot.png" height="35" />
-                        <div id="postname">${"username"}</div>
+                        <image id="postpic" src="${hostURL + "getProfilePic?user=" + sessionUsername}" height="35" />
+                        <div id="postname">${sessionUsername}</div>
                         <div id="posttime">${formatDate(new Date())}</div>
                         <p id="postcontent">Re: ${comment}</p>
                     </div>`;
