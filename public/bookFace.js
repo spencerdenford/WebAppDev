@@ -18,7 +18,7 @@ async function reqListener(data) {
     }
 }
 
-function addPostToPage(username, postText, imageURL, postTime, postID, numLikes, comments){
+function addPost(username, postText, imageURL, postTime, postID, numLikes, comments){
     // if an image exists in the post we want to add it to the post. otherwise we want image to remain an empty string
     var image = "";
     if(imageURL != "http://localhost:3000/images/useruploads/"){
@@ -147,8 +147,6 @@ function commentButton(post, postID){
         }
     }
 }
-
-
 
 function getUsername(data){
     // set sessionUsername to your username

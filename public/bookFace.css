@@ -194,11 +194,11 @@ header img {
     float: left;
     
     margin-top: 0.5rem;
-    margin-left: 1.5rem;
+    margin-right: 1.5rem;
 }
 
 #filewrap {
-    float: left;
+    float: right;
 }
 
 #posts {
@@ -303,6 +303,7 @@ header img {
 
 #username {
     color: black;
+    font-weight: bold;
 
     margin-left: 6rem;
     margin-top: 1.5rem;
