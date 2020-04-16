@@ -1,3 +1,5 @@
+var hostURL = "http://localhost:3000/";
+var imgURL = "http://localhost:3000/images/";
 var sessionUsername;
 
 async function reqListener(data) {
@@ -7,11 +9,11 @@ async function reqListener(data) {
 
     for(var i = jsonData.length - 1; i > -1; i--){
         // for each post entry we add the post to the website!
-        addPost(
-            jsonData[i].username, 
-            jsonData[i].postText, 
-            hostURL + jsonData[i].imageURL, 
-            jsonData[i].time, 
+        addPostToPage(
+            jsonData[i].username,
+            jsonData[i].postText,
+            hostURL + jsonData[i].imageURL,
+            jsonData[i].time,
             jsonData[i]._id,
             jsonData[i].likes,
             jsonData[i].comments,
@@ -37,7 +39,7 @@ function addPostToPage(username, postText, imageURL, postTime, postID, numLikes,
     // this big block displays the actual original post to the page
     var postHTML =  `
                 <div id="post">
-                    <image id="postpic" src="images/mandelbrot.png" height="35" />
+                    <image id="postpic" src="${hostURL+"getProfilePic?user="+username}" height="35"/>
                     <div id="postname">${username}</div>
                     <div id="posttime">${formatDate(postTime)}</div>
                     <p id="postcontent">${postText}</p>
@@ -56,7 +58,7 @@ function addPostToPage(username, postText, imageURL, postTime, postID, numLikes,
                         <a id="comments">`;
                             for(var i = 0; i < comments.length; i++){
                                 postHTML += `<div id="comment">
-                                    <image id="postpic" src="images/mandelbrot.png" height="35" />
+                                    <image id="postpic" src="${hostURL+"getProfilePic?user="+comments[i].username}" height="35" />
                                     <div id="postname">${comments[i].username}</div>
                                     <div id="posttime">${formatDate(comments[i].time)}</div>
                                     <p id="postcontent">Re: ${comments[i].comment}</p>
@@ -148,14 +150,14 @@ function commentButton(post, postID){
     }
 }
 
-
-
 function getUsername(data){
     sessionUsername = data.srcElement.responseText;
     console.log('got username: ' + sessionUsername);
 
     // Change the profile username to your username!
     document.getElementById("username").innerHTML = sessionUsername;
+    document.getElementById("profilepicture").setAttribute("src", hostURL + "getProfilePic?user=" + sessionUsername);
+    document.getElementById("composePicture").setAttribute("src", hostURL + "getProfilePic?user=" + sessionUsername);
 }
 
 window.onload = function(){

@@ -139,6 +139,17 @@ header {
     margin-bottom: 1rem;
 }
 
+#fileimage{
+    background-image: url("/images/image.png");
+    background-repeat: no-repeat;
+    padding-left: 40px;
+    padding-bottom: 20px;
+    width: 0px;
+    float: left;
+    margin-top: 0.5rem;
+    margin-left: 1.5rem;
+}
+
 #postpic {
     border-radius: 50%;
     float: left;

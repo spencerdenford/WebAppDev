@@ -61,6 +61,7 @@ let userSchema = new Schema({
   hashedPassword: String,
   birthday: String,
   gender: String,
+  profilePic: String,
   //friendsList: [{type: String, sparse: true}]
 }, {
   collection: 'users'
@@ -150,7 +151,7 @@ app.get('/news', (request, response) => {
 });
 
 app.get('/profile', (request, response) => {
-  user = request.query.user;
+  var user = request.query.user;
   if (user == undefined || user == "") {
     response.redirect('/profile?user=' + request.session.username);
     //user = req.session.username;
@@ -158,6 +159,26 @@ app.get('/profile', (request, response) => {
   response.sendFile(__dirname + '/public/profile.html');
 });
 
+app.get('/getProfilePic', async function(request, response){
+  console.log("/getProfilePic");
+  var user = request.query.user;
+  if(user == undefined || user == ""){
+    response.redirect('/profile?user=' + request.session.username);
+  }
+  var user = await mongoose.connection.db
+    .collection('users')
+    .findOne({ username: user });
+  if(user == null || user == undefined || user['profilePic'] == undefined || user['profilePic'] == ""){
+    response.sendFile(__dirname + '/public/images/mandelbrot.png');
+    return;
+  }
+  var profilePicName = user['profilePic'];
+  console.log(profilePicName);
+
+  response.sendFile(__dirname + '/public/images/profilepictures/' + profilePicName);
+});
+
+// post comment
 app.post('/postComment', async function(req, res){
   var jsonData = JSON.parse(Object.keys(req.body)[0]);
   console.log('postComment');
@@ -172,6 +193,32 @@ app.post('/postComment', async function(req, res){
   mongoose.connection.db.collection('posts').updateOne({ _id: ObjectId(postID) }, { $set: { comments: comments } });
   //
   res.send('sent');
+});
+
+// change profile picture
+app.post('/changeProfilePic', function(req, res){
+  // get username
+  req.busboy.on('field', function (fieldname, val) {
+    console.log('field:');
+    console.log(val);
+  });
+
+  // get profile picture and add name to db
+  req.pipe(req.busboy);
+  req.busboy.on('file', async function(fieldname, file, filename){
+
+    if (filename != "") {
+      console.log("Uploading: " + filename);
+      //Path where image will be uploaded
+      var fstream = fs.createWriteStream(__dirname + '/public/images/profilepictures/' + filename);
+      file.pipe(fstream);
+      fstream.on('close', function () {
+        console.log("Upload Finished of " + filename);
+      });
+    }
+    console.log('updating user: ' + username + ', profilePicName: ' + filename);
+    mongoose.connection.db.collection('users').updateOne({ username: username }, { $set: { profilePic: filename } });
+  });
 });
 
 // add post to posts collection when user clicks post
