@@ -6,9 +6,9 @@ $(document).ready(function() {
         async: false,
         dataType: "json",
         success: function(data) {
-            console.log(data);  //Testing
-            console.log(data.articles);  //Testing
-            console.log(data.articles.length); //Testing
+            //console.log(data);  //Testing
+            //console.log(data.articles);  //Testing
+            //console.log(data.articles.length); //Testing
 
             var articles = data.articles;
             var newsDisplay = "<table>";
@@ -22,9 +22,31 @@ $(document).ready(function() {
                 newsDisplay += "</a>";
                 newsDisplay += "<div id='source'>"+articles[i].source.name+"</div>";
                 newsDisplay += "<div id='datePublished'>"+"Published: "+articles[i].publishedAt+"</div>";
-                newsDisplay += "<div id='author'>"+"Author: "+articles[i].author+"</div>";
-                newsDisplay += "<div id='description'>"+"Description: "+articles[i].description+"</div>";
-                newsDisplay += "<div id='content'>"+"Content: "+articles[i].content+"</div>";
+
+                //Checking for null or empty value in the author data
+                if (articles[i].author == null || articles[i].author == "") {
+                    newsDisplay += "<div id='author'>Author: N/A</div>";
+                }
+                else {
+                    newsDisplay += "<div id='author'>"+"Author: "+articles[i].author+"</div>";
+                }
+
+                //Checking for null or empty value in the description data
+                if (articles[i].description == null || articles[i].description == "") {
+                    newsDisplay += "<div id='description'>"+"Description: N/A"+"</div>";
+                }
+                else {
+                    newsDisplay += "<div id='description'>"+"Description: "+articles[i].description+"</div>";
+                }
+
+                //Checking for null or empty value in the content data
+                if (articles[i].content == null || articles[i].content == "") {
+                    newsDisplay += "<div id='content'>"+"Content: N/A"+"</div>";
+                }
+                else {
+                    newsDisplay += "<div id='content'>"+"Content: "+articles[i].content+"</div>";
+                }
+
                 newsDisplay += "</td>";
                 newsDisplay += "<td id='articlePic' align='center'>";
                 newsDisplay += "<img id='image' src="+articles[i].urlToImage+">";
