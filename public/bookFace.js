@@ -7,17 +7,18 @@ async function reqListener(data) {
 
     for(var i = jsonData.length - 1; i > -1; i--){
         // for each post entry we add the post to the website!
-        addPost(jsonData[i].username, 
+        addPostToPage(jsonData[i].username, 
             jsonData[i].postText, 
             hostURL + jsonData[i].imageURL, 
             jsonData[i].time, 
             jsonData[i]._id,
             jsonData[i].likes,
+            jsonData[i].comments,
         );
     }
 }
 
-function addPost(username, postText, imageURL, postTime, postID, numLikes){
+function addPostToPage(username, postText, imageURL, postTime, postID, numLikes, comments){
     // if an image exists in the post we want to add it to the post. otherwise we want image to remain an empty string
     var image = "";
     if(imageURL != "http://localhost:3000/images/useruploads/"){
@@ -46,7 +47,16 @@ function addPost(username, postText, imageURL, postTime, postID, numLikes){
                         <a class="commentbutton" type="submit" style="background:transparent; border:none; color:transparent;">
                             <img src="images/comment.png" height="20">
                         </a>
-                        <a id="comments">0</a>
+                        <a id="comments">`;
+                            for(var i = 0; i < comments.length; i++){
+                                postHTML += `<div id="comment">
+                                    <image id="postpic" src="images/mandelbrot.png" height="35" />
+                                    <div id="postname">${comments[i].username}</div>
+                                    <div id="posttime">${formatDate(comments[i].time)}</div>
+                                    <p id="postcontent">Re: ${comments[i].comment}</p>
+                                </div>`;
+                            }
+            postHTML += `</a>
                     </form>
                     <!--share button-->
                 </div>
@@ -57,7 +67,7 @@ function addPost(username, postText, imageURL, postTime, postID, numLikes){
 
     // first element will be the post which was just appended
     var post = $('#posts')[0].children[$('#posts')[0].children.length - 1];
-    commentButton(post);
+    commentButton(post, postID);
 }
 
 function formatDate(d){
@@ -107,25 +117,25 @@ function likeButton() { // fix this lol
     */
 }
 
-function commentButton(post){
-    var commentButton = post.children[5].children[3];
-    commentButton.onclick = function(){
+function commentButton(post, postID){
+    var commentButtonDOM = post.children[5].children[3];
+    commentButtonDOM.onclick = function(){
         // add input box
         post.innerHTML +=   `
-            <div id="commentwrap">
+            <form id="commentwrap">
                 <input id="commentmessage" type="text" name="textfield" placeholder="Type comment here:"/>
                 <a id="postbutton">Post</a>
-            </div>`;
+            </form>`;
 
-        var comments = post.children[post.childElementCount - 1];
-        comments.children[1].onclick = function() {
-            var comment = comments.children[0].value;
+        var commentForm = post.children[post.childElementCount - 1];
+        commentForm.children[1].onclick = function() {
+            var comment = commentForm.children[0].value;
 
             if (comment != ""){
                 // erase the text box by removing its surrounding div tag
-                comments.remove();
+                commentForm.remove();
 
-                // add the comment to the html
+                // add the new comment to the html
                 post.innerHTML += `
                     <div id="comment">
                         <image id="postpic" src="images/mandelbrot.png" height="35" />
@@ -133,13 +143,22 @@ function commentButton(post){
                         <div id="posttime">${formatDate(new Date())}</div>
                         <p id="postcontent">Re: ${comment}</p>
                     </div>`;
+
+                // add the new comment to the database
+                var postCommentReq = new XMLHttpRequest();
+                postCommentReq.addEventListener("load", (d)=>{console.log('sent')});
+                postCommentReq.open("POST", '/postComment');
+                postCommentReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                postCommentReq.send(JSON.stringify({"comment": comment, "postID": postID}));
             }
 
             // call commentButton again to allow multiple comments
-            commentButton(post);
+            commentButton(post, postID);
         }
     }
 }
+
+
 
 function getUsername(data){
     var sessionUsername = data.srcElement.responseText;
@@ -163,6 +182,7 @@ window.onload = function(){
     likeButton(); // <- maybe remove
 }
 
+// News Sidebar
 $(document).ready(function() {
     //Retrieves the first three Canadian news article from NewsAPI.org
     $.ajax({

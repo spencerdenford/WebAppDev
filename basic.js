@@ -16,47 +16,7 @@ var fs = require('fs-extra');       //File System - for file manipulation
 app.use(busboy());
 
 app.use(express.static('public')); //used for sockets
-
-// sockets 
-let messageHistory = [];
-io.on('connection', function(socket) {
-    console.log('User connected');
-
-    for (let i = 0; i < messageHistory.length; i++) {
-        socket.emit('broadcast message', messageHistory[i]);
-    }
-
-    socket.on('disconnect', function() {
-        console.log('User disconnected');
-    });
-
-    socket.on('send message', function(data) {
-        //data.username = request.session.username;
-
-        console.log('Server - User said: ' + data.message);
-        console.log('Server - User is in room: ' + data.room);
-        console.log("Server - Username: " + data.username);
-
-        messageHistory.push(data);
-
-        // broadcast the message to all clients
-        //io.emit('broadcast message', data);
-
-        // sends message to all users in the specific room, including the sender
-        io.in(data.room).emit('broadcast message', data);
-    });
-
-    socket.on('join room', function(data) {
-      console.log("Joining room: " + data.room);
-      socket.join(data.room);
-    });
-
-    socket.on('leave room', function(data) {
-      console.log("Leaving room: " + data.room);
-      socket.leave(data.room);
-    });
-});
-
+app.use(express.urlencoded())
 
 // database config
 mongoose.Promise = global.Promise
@@ -113,6 +73,7 @@ let postSchema = new Schema({
   postText: String,
   imageURL: String,
   likes: [String],
+  comments: [{username: String, comment: String, time: Date}],
 }, { 
   collection: 'posts' 
 });
@@ -195,6 +156,22 @@ app.get('/profile', (request, response) => {
     //user = req.session.username;
   }
   response.sendFile(__dirname + '/public/profile.html');
+});
+
+app.post('/postComment', async function(req, res){
+  var jsonData = JSON.parse(Object.keys(req.body)[0]);
+  console.log('postComment');
+  console.log(jsonData);
+  //
+  var postID = jsonData.postID;
+  var username = req.session.username;
+  var comment = jsonData.comment;
+  var post = await mongoose.connection.db.collection('posts').findOne({ _id: ObjectId(postID) });
+  var comments = post['comments'];
+  comments.push({"username": username, "comment": comment, "time": Date.now()});
+  mongoose.connection.db.collection('posts').updateOne({ _id: ObjectId(postID) }, { $set: { comments: comments } });
+  //
+  res.send('sent');
 });
 
 // add post to posts collection when user clicks post
@@ -314,6 +291,46 @@ app.post('/processLogin', (request, response) => {
     console.log('login: catch');
     response.sendFile(__dirname + '/public/loginFailure.html')
  });
+});
+
+// Sockets 
+let messageHistory = [];
+io.on('connection', function (socket) {
+  console.log('User connected');
+
+  for (let i = 0; i < messageHistory.length; i++) {
+    socket.emit('broadcast message', messageHistory[i]);
+  }
+
+  socket.on('disconnect', function () {
+    console.log('User disconnected');
+  });
+
+  socket.on('send message', function (data) {
+    //data.username = request.session.username;
+
+    console.log('Server - User said: ' + data.message);
+    console.log('Server - User is in room: ' + data.room);
+    console.log("Server - Username: " + data.username);
+
+    messageHistory.push(data);
+
+    // broadcast the message to all clients
+    //io.emit('broadcast message', data);
+
+    // sends message to all users in the specific room, including the sender
+    io.in(data.room).emit('broadcast message', data);
+  });
+
+  socket.on('join room', function (data) {
+    console.log("Joining room: " + data.room);
+    socket.join(data.room);
+  });
+
+  socket.on('leave room', function (data) {
+    console.log("Leaving room: " + data.room);
+    socket.leave(data.room);
+  });
 });
 
 // web listener
