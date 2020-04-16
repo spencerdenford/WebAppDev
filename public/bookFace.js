@@ -61,7 +61,7 @@ function addPostToPage(username, postText, imageURL, postTime, postID, numLikes,
                                     <image id="postpic" src="${hostURL+"getProfilePic?user="+comments[i].username}" height="35" />
                                     <div id="postname">${comments[i].username}</div>
                                     <div id="posttime">${formatDate(comments[i].time)}</div>
-                                    <p id="postcontent">Re: ${comments[i].comment}</p>
+                                    <p id="postcontent">${comments[i].comment}</p>
                                 </div>`;
                             }
             postHTML += `</a>

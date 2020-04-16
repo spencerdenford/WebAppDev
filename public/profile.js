@@ -112,6 +112,7 @@ function getUsername(data) {
     sessionUsername = data.srcElement.responseText;
     console.log('got username: ' + sessionUsername);
 
+    // if this profile is the user's profile
     if(username == sessionUsername){
         console.log("username == sessionUsername");
         var pageheader = document.getElementById('pageheader');
@@ -155,7 +156,7 @@ function commentButton(post, postID){
                         <image id="postpic" src="images/mandelbrot.png" height="35" />
                         <div id="postname">${sessionUsername}</div>
                         <div id="posttime">${formatDate(new Date())}</div>
-                        <p id="postcontent">Re: ${comment}</p>
+                        <p id="postcontent">${comment}</p>
                     </div>`;
 
                 // add the new comment to the database
