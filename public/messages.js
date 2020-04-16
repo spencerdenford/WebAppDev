@@ -163,6 +163,7 @@ window.onload = function() {var messages = document.getElementsByClassName("mess
             }
         }
 
+
         // add new message and date to arrays
         messagehistory.push(data.message);
         messagetimes.push(formatDate());
@@ -171,7 +172,12 @@ window.onload = function() {var messages = document.getElementsByClassName("mess
         var messageBox = document.getElementById("innerMessage");
 
         // removes the prompt message and adds the sent message to the screen
-        messageBox.children[3].innerHTML = "";
+        if (sentMessage.length == 0){
+            document.getElementById("prompt").innerHTML = "Click here to send a message";
+        }
+        else {
+            messageBox.children[3].innerHTML = "";
+        }
         messageBox.children[2].innerHTML += `
             <div id="senttime">${messagetimes[messagehistory.length - 1]}</div>
             <div id="messagecontent" class="${sent}">${messagehistory[messagehistory.length - 1]}</div>`;

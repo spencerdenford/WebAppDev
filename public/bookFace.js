@@ -38,37 +38,38 @@ function addPostToPage(username, postText, imageURL, postTime, postID, numLikes,
     
     // this big block displays the actual original post to the page
     var postHTML =  `
-                <div id="post">
-                    <image id="postpic" src="${hostURL+"getProfilePic?user="+username}" height="35"/>
-                    <div id="postname">${username}</div>
-                    <div id="posttime">${formatDate(postTime)}</div>
-                    <p id="postcontent">${postText}</p>
-                    <div>
-                        ${image}
-                    </div> 
-                    <form method="POST">
-                        <input type="hidden" name="postID" id="test" value="${postID}">
-                        <button class="likebutton" type="submit" formaction="/like" style="background:transparent; border:none; color:transparent;">
-                            ${iLikedImg}
-                        </button>
-                        <a class="likecount" id="likes">${numLikes.length}</a>
-                        <a class="commentbutton" type="submit" style="background:transparent; border:none; color:transparent;">
-                            <img src="images/comment.png" height="20">
-                        </a>
-                        <a id="comments">`;
-                            for(var i = 0; i < comments.length; i++){
-                                postHTML += `<div id="comment">
-                                    <image id="postpic" src="${hostURL+"getProfilePic?user="+comments[i].username}" height="35" />
-                                    <div id="postname">${comments[i].username}</div>
-                                    <div id="posttime">${formatDate(comments[i].time)}</div>
-                                    <p id="postcontent">Re: ${comments[i].comment}</p>
-                                </div>`;
-                            }
-            postHTML += `</a>
-                    </form>
-                    <!--share button-->
-                </div>
-                `; // href="/comment?id=${postID}"
+        <div id="post">
+            <image id="postpic" src="${hostURL+"getProfilePic?user="+username}" height="35"/>
+            <div id="postname">${username}</div>
+            <div id="posttime">${formatDate(postTime)}</div>
+            <p id="postcontent">${postText}</p>
+            <div>
+                ${image}
+            </div> 
+            <form method="POST">
+                <input type="hidden" name="postID" id="test" value="${postID}">
+                <button class="likebutton" type="submit" formaction="/like" style="background:transparent; border:none; color:transparent;">
+                    ${iLikedImg}
+                </button>
+                <a class="likecount" id="likes">${numLikes.length}</a>
+                <a class="commentbutton" type="submit" style="background:transparent; border:none; color:transparent;">
+                    <img src="images/comment.png" height="20">
+                </a>
+                <a id="comments">`;
+    for(var i = 0; i < comments.length; i++){
+        postHTML += `
+                    <div id="comment">
+                        <image id="postpic" src="${hostURL+"getProfilePic?user="+comments[i].username}" height="35" />
+                        <div id="postname">${comments[i].username}</div>
+                        <div id="posttime">${formatDate(comments[i].time)}</div>
+                        <p id="postcontent">Re: ${comments[i].comment}</p>
+                    </div>`;
+    }
+    postHTML += `
+                </a>
+            </form>
+            <!--share button-->
+        </div>`;
 
     // add the post to the html
     $('#posts').append(postHTML);
@@ -116,7 +117,7 @@ function commentButton(post, postID){
         post.innerHTML +=   `
             <form id="commentwrap">
                 <input id="commentmessage" type="text" name="textfield" placeholder="Type comment here:"/>
-                <a id="postbutton">Post</a>
+                <a id="button3">Post</a>
             </form>`;
 
         var commentForm = post.children[post.childElementCount - 1];

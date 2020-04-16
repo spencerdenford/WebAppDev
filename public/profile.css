@@ -97,7 +97,6 @@ header {
 #post {
     border: 1px solid gray;
     padding: 1rem;
-    margin-bottom: 1rem;
 }
 
 #fileimage{
@@ -114,6 +113,9 @@ header {
 #postpic {
     border-radius: 50%;
     float: left;
+
+    height: 60px;
+    width: 60px;
 }
 
 #postname {
@@ -127,4 +129,57 @@ header {
 
 #postcontent {
     padding-top: 2.25rem;
+    padding-left: 5rem;
+    margin-bottom: 1rem;
+}
+
+#likes {
+    padding-right: 3rem;
+    color: black;
+}
+
+#likeImage{
+    width: 20px;
+    height: 20px;
+}
+
+#commentwrap{
+    margin: 1rem;
+    padding-top: 1rem;
+
+}
+
+#commentmessage {
+    padding: 1rem;
+}
+
+#comment{
+    margin-top: 1rem;
+    padding: 1rem;
+
+    border: 1px solid gray;
+    color: black;
+
+    cursor: auto;
+}
+
+#button {
+    margin: 2rem;
+    font-size: 1.05rem;
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.8rem;
+    margin-top: 0.5rem;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    text-decoration: none;
+
+    background-color: white; 
+    color: black; 
+    border: 2px solid darkblue;
+}
+
+#button:hover {
+    background-color: darkblue;
+    color: white;
 }
