@@ -2,6 +2,8 @@ var messagehistory = [];
 var messagetimes = [];
 var lastmessage;
 
+var sentMessage = [];
+
 const socket = io();
 var roomName = "";
 
@@ -10,9 +12,16 @@ function messagesExpand(clicked) {
     clicked.children[0].children[2].innerHTML = "";
 
     for (i = 0; i < messagehistory.length; i++){
+        var sent = "recieved";
+        for (o = 0; o < sentMessage.length; o++){
+            if (messagehistory[i] == sentMessage[o]){
+                sent = "sent";
+            }
+        }
+
         clicked.children[0].children[2].innerHTML += `
             <div id="senttime">${messagetimes[i]}</div>
-            <div id="messagecontent">${messagehistory[i]}</div>`;
+            <div id="messagecontent" class=${sent}>${messagehistory[i]}</div>`;
     }
 
     // add the text field
@@ -20,7 +29,6 @@ function messagesExpand(clicked) {
 
     document.getElementById("sendMessage").onclick = function () {
         this.addEventListener("keyup", function(event) {
-            
             // wait for the enter (13) key to be pressed!
             if ((event.keyCode === 13) && (this.value != "")) {
                 // socket.io
@@ -30,40 +38,7 @@ function messagesExpand(clicked) {
                     username: null,
                 });
 
-                socket.on('broadcast message', function(data) {
-                    // this prevents the application from reading in messages from the sockets more than once
-                    console.log(data.message);
-                    if (data == lastmessage){
-                        return;
-                    }
-
-                    lastmessage = data;
-
-                    // add new message and date to arrays
-                    messagehistory.push(data.message);
-                    messagetimes.push(formatDate());
-                    
-                    // shorten my statements
-                    var messageBox = clicked.children[0];
-
-                    // removes the prompt message and adds the sent message to the screen
-                    messageBox.children[3].innerHTML = "";
-                    messageBox.children[2].innerHTML += `
-                        <div id="senttime">${messagetimes[messagehistory.length - 1]}</div>
-                        <div id="messagecontent">${messagehistory[messagehistory.length - 1]}</div>`;
-
-                    // add the above bloacked out code IF message history is too long
-                    if (messagehistory.length == 10){
-                        // remove the oldest message (message and time)
-                        messageBox.children[2].children[0].remove();
-                        messageBox.children[2].children[0].remove();
-
-                        // this removes the oldest message from the messagehistory and messagetimes arrays
-                        messagehistory.shift();
-                        messagetimes.shift();
-                    }
-                        
-                });
+                sentMessage.push(this.value);
 
                 // set the box text back to null
                 this.value = "";
@@ -75,9 +50,16 @@ function messagesExpand(clicked) {
     clicked.children[0].onclick = function () { 
         // create the display (most recent) message
         if (messagehistory.length != 0){
+            var sent = "recieved";
+            for (i = 0; i < sentMessage.length; i++){
+                if (messagehistory[messagehistory.length - 1] == sentMessage[i]){
+                    sent = "sent";
+                }
+            }
+
             this.children[2].innerHTML = `
                 <div id="senttime">${messagetimes[messagehistory.length - 1]}</div>
-                <div id="messagecontent">${messagehistory[messagehistory.length - 1]}</div>`;
+                <div id="messagecontent" class=${sent}>${messagehistory[messagehistory.length - 1]}</div>`;
         }
 
         // close chat box
@@ -88,9 +70,6 @@ function messagesExpand(clicked) {
         // call function so we don't mess it up by clicking the text box
         this.onclick = function () { messagesExpand(this.parentElement) };
     }
-    
-    // call function to give the onclick function to any newly generated text boxes
-    //clicked.children[0].onclick = function () { messagesExpand(this.parentElement) };
 }
 
 function formatDate(){
@@ -121,9 +100,7 @@ function formatDate(){
     return(date);
 }
 
-window.onload = function() {
-    var messages = document.getElementsByClassName("message");
-
+window.onload = function() {var messages = document.getElementsByClassName("message");
     // give onclick function to each new "message" which is each room
     for (i = 0; i < messages.length; i++){
         messages[i].children[0].onclick = function() { messagesExpand(this.parentElement) };
@@ -133,7 +110,7 @@ window.onload = function() {
     var oldRoom = null;
 
     joinbutton.onclick = function(){
-        // this chunk of code here restores the message box to its original state 
+        // restores the message box to its original state 
         var chatBox = document.getElementById("message").children[0];
         if (chatBox.parentElement.children[1] != null){
             chatBox.parentElement.children[1].remove();
@@ -171,5 +148,44 @@ window.onload = function() {
         oldRoom = roomName;
     };
 
+    socket.on('broadcast message', function(data) {
+        // this prevents the application from reading in messages from the sockets more than once
+        if (data == lastmessage){
+            return;
+        }
 
+        lastmessage = data;
+
+        var sent = "recieved";
+        for (i = 0; i < sentMessage.length; i++){
+            if (sentMessage[i] == data.message){
+                sent = "sent";
+            }
+        }
+
+        // add new message and date to arrays
+        messagehistory.push(data.message);
+        messagetimes.push(formatDate());
+        
+        // shorten my statements
+        var messageBox = document.getElementById("innerMessage");
+
+        // removes the prompt message and adds the sent message to the screen
+        messageBox.children[3].innerHTML = "";
+        messageBox.children[2].innerHTML += `
+            <div id="senttime">${messagetimes[messagehistory.length - 1]}</div>
+            <div id="messagecontent" class="${sent}">${messagehistory[messagehistory.length - 1]}</div>`;
+
+        // add the above bloacked out code IF message history is too long
+        if (messagehistory.length == 10){
+            // remove the oldest message (message and time)
+            messageBox.children[2].children[0].remove();
+            messageBox.children[2].children[0].remove();
+
+            // this removes the oldest message from the messagehistory and messagetimes arrays
+            messagehistory.shift();
+            messagetimes.shift();
+        }
+            
+    });
 }
