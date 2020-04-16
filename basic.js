@@ -61,7 +61,6 @@ let userSchema = new Schema({
   hashedPassword: String,
   birthday: String,
   gender: String,
-  //friendsList: [{type: String, sparse: true}]
 }, {
   collection: 'users'
 });
@@ -302,29 +301,17 @@ app.post('/processLogin', (request, response) => {
 });
 
 // Sockets 
-let messageHistory = [];
 io.on('connection', function (socket) {
   console.log('User connected');
-
-  for (let i = 0; i < messageHistory.length; i++) {
-    socket.emit('broadcast message', messageHistory[i]);
-  }
 
   socket.on('disconnect', function () {
     console.log('User disconnected');
   });
 
   socket.on('send message', function (data) {
-    //data.username = request.session.username;
-
     console.log('Server - User said: ' + data.message);
     console.log('Server - User is in room: ' + data.room);
     console.log("Server - Username: " + data.username);
-
-    messageHistory.push(data);
-
-    // broadcast the message to all clients
-    //io.emit('broadcast message', data);
 
     // sends message to all users in the specific room, including the sender
     io.in(data.room).emit('broadcast message', data);

@@ -110,7 +110,7 @@ window.onload = function() {var messages = document.getElementsByClassName("mess
     var oldRoom = null;
 
     joinbutton.onclick = function(){
-        // this chunk of code here restores the message box to its original state 
+        // restores the message box to its original state 
         var chatBox = document.getElementById("message").children[0];
         if (chatBox.parentElement.children[1] != null){
             chatBox.parentElement.children[1].remove();
