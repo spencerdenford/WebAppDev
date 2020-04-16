@@ -308,7 +308,7 @@ app.post('/createAccount', (request, response) => {
           console.log("User added");
           request.session.username = username;
           console.log("Session Username: " + request.session.username); //Testing
-          response.sendFile(__dirname + '/public/bookface.html')
+          response.redirect('/home');
         }
       });
     }  
@@ -334,7 +334,7 @@ app.post('/processLogin', (request, response) => {
           //Password match - successful login, load success page
           request.session.username = username;
           console.log("Session Username: " + request.session.username); //Testing
-          response.sendFile(__dirname + '/public/bookface.html')  
+          response.redirect('/home'); 
        } else {
           console.log('login: password is not a match');
           //Error logging in - invalid password, load failure page

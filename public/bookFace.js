@@ -8,7 +8,7 @@ async function reqListener(data) {
     var hostURL = "http://localhost:3000/images/useruploads/"
     console.log(jsonData);
 
-    for(var i = 0; i < jsonData.length; i++){
+    for(var i = jsonData.length - 1; i >= 0; i--){
         // for each post entry we add the post to the website!
         addPostToPage(
             jsonData[i].username,
