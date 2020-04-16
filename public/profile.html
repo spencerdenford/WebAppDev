@@ -1,63 +1,73 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Profile</title>
-        <link rel="stylesheet" href="profile.css" />
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-        <script type="text/javascript" src="profile.js"></script>
-    </head>
-    <body>
-        <header>
-            <a class="navbar-item" href="/home">
-                <img src="images/bookFACE.png" id="home" alt="BookFace"/>
-            </a>
-            <a id="title">
-                uSerNAmE
-            </a>
-            <a id="topLinks" href="/home">
-                home
-            </a>
-            <a id="topLinks" href="/messages">
-                messages
-            </a>
-            <a id="topLinks" href="/news">
-                news
-            </a>
-            <button id="button1">
-                Log Out
-            </button>
-        </header>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-        <div id="page">
-            <div id="pageheader">
-                <img id="profilepicture" src="images/mandelbrot.png" />
-                <a id="username">YourName</a>
-                <div id="biography"> <!-- needs a character limit if we do editing -->
-                    Hello this is my bio, what an amazing website
-                </div>
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
+    <link rel="stylesheet" href="profile.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="profile.js"></script>
+</head>
+<body>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-menu">
+                <a class="logo" href="/home">
+                    <img src="images/bookFACE.png" id="home" alt="BookFace"/>
+                </a>
+                <a class="title" href="/home">
+                    BookFace
+                </a>
+                <a class="title" href="/home">
+                    Home
+                </a>
+                <a class="title" href="/messages">
+                    Messages
+                </a>
+                <a class="title" href="/News">
+                    News
+                </a>
+                <a class="logout", href="/logout">
+                    Log Out
+                </a>
             </div>
-            <div id="posts">
-                <!-- add posts here! -->
+        </nav>
+    </header>
+
+    <div id="page">
+        <div id="pageheader">
+            <img id="profilepicture" src="images/mandelbrot.png" />
+            <a id="username">YourName</a>
+            <div id="biography"> <!-- needs a character limit if we do editing -->
+                Hello this is my bio, what an amazing website
             </div>
         </div>
-
-        <div id="friends">
-            <div id="friendstitle">Friends</div>
-
-            <!--TODO: add real profiles here-->
-
-            <div id="profilewrap">    
-                <img id="friendprofilepicture" src="images/mandelbrot.png" />
-                <a id="friendusername" >UserName1</a>
-            </div>
-            <div id="profilewrap">    
-                <img id="friendprofilepicture" src="images/mandelbrot.png" />
-                <a id="friendusername" >UserName2</a>
-            </div>
-            <div id="profilewrap">    
-                <img id="friendprofilepicture" src="images/mandelbrot.png" />
-                <a id="friendusername" >UserName3</a>
-            </div>
+        <div id="posts">
+            <!-- add posts here! -->
         </div>
-    </body> 
+    </div>
+
+    <div id="friends">
+        <div id="friendstitle">Friends</div>
+
+        <!--TODO: add real profiles here-->
+
+        <div id="profilewrap">    
+            <img id="friendprofilepicture" src="images/mandelbrot.png" />
+            <a id="friendusername" >UserName1</a>
+        </div>
+        <div id="profilewrap">    
+            <img id="friendprofilepicture" src="images/mandelbrot.png" />
+            <a id="friendusername" >UserName2</a>
+        </div>
+        <div id="profilewrap">    
+            <img id="friendprofilepicture" src="images/mandelbrot.png" />
+            <a id="friendusername" >UserName3</a>
+        </div>
+    </div>
+</body> 
 </html>

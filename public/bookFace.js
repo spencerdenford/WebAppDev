@@ -7,7 +7,8 @@ async function reqListener(data) {
 
     for(var i = jsonData.length - 1; i > -1; i--){
         // for each post entry we add the post to the website!
-        addPostToPage(jsonData[i].username, 
+        addPost(
+            jsonData[i].username, 
             jsonData[i].postText, 
             hostURL + jsonData[i].imageURL, 
             jsonData[i].time, 
@@ -25,10 +26,13 @@ function addPostToPage(username, postText, imageURL, postTime, postID, numLikes,
         image = `<p><img class="attachedpicture" id="attachedpicture" src=${imageURL} height="200" width="200"/></p>`;
     }
 
-    /*var iLikedImg = "";
-    if(myUsername in numLikes){
-        console.log("I have liked this!");
-    }*/ // TODO fix this. i need to find my username
+    var iLikedImg = `<img src="images/heart.png" height="20">`;
+    for (i = 0; i < numLikes.length; i++){
+        if(sessionUsername == numLikes[i]){
+            console.log("I have liked this!");
+            iLikedImg = `<img src="images/hearted.png" height="20">`;
+        }
+    }
 
     // this big block displays the actual original post to the page
     var postHTML =  `
@@ -42,7 +46,9 @@ function addPostToPage(username, postText, imageURL, postTime, postID, numLikes,
                     </div> 
                     <form method="POST">
                         <input type="hidden" name="postID" id="test" value="${postID}">
-                        <button class="likebutton" type="submit" formaction="/like" style="background:transparent; border:none; color:transparent;"><img src="images/heart.png" height="20"></button>
+                        <button class="likebutton" type="submit" formaction="/like" style="background:transparent; border:none; color:transparent;">
+                            ${iLikedImg}
+                        </button>
                         <a class="likecount" id="likes">${numLikes.length}</a>
                         <a class="commentbutton" type="submit" style="background:transparent; border:none; color:transparent;">
                             <img src="images/comment.png" height="20">
@@ -101,22 +107,6 @@ function formatDate(d){
     return dateString;
 }
 
-function likeButton() { // fix this lol
-    /*
-    // when each like button is clicked we increment that image's 
-    if (this.src == "http://localhost:3000/images/heart.png"){
-        this.src = "http://localhost:3000/images/hearted.png";
-        this.parentElement.children[5].innerHTML = parseInt(this.parentElement.children[5].innerHTML) + 1;
-    }
-    else{
-        this.src = "http://localhost:3000/images/heart.png";
-        // 5 because that is the index of the "likecount" element
-        this.parentElement.children[5].innerHTML = parseInt(this.parentElement.children[5].innerHTML) - 1; 
-        // TODO: decrement like count in database
-    }
-    */
-}
-
 function commentButton(post, postID){
     var commentButtonDOM = post.children[5].children[3];
     commentButtonDOM.onclick = function(){
@@ -161,8 +151,11 @@ function commentButton(post, postID){
 
 
 function getUsername(data){
-    var sessionUsername = data.srcElement.responseText;
+    sessionUsername = data.srcElement.responseText;
     console.log('got username: ' + sessionUsername);
+
+    // Change the profile username to your username!
+    document.getElementById("username").innerHTML = sessionUsername;
 }
 
 window.onload = function(){
@@ -177,9 +170,6 @@ window.onload = function(){
     usernameReq.addEventListener("load", getUsername);
     usernameReq.open("GET", "/getUsername");
     usernameReq.send();
-    
-    // call likeButton and commentButton to add the onclick function to all the posts already on screen
-    likeButton(); // <- maybe remove
 }
 
 // News Sidebar
