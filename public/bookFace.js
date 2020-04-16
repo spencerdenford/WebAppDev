@@ -7,7 +7,7 @@ async function reqListener(data) {
     var jsonData = JSON.parse(this.responseText);
     var hostURL = "http://localhost:3000/images/useruploads/"
 
-    for(var i = jsonData.length - 1; i > -1; i--){
+    for(var i = 0; i < jsonData.length - 2; i++){
         // for each post entry we add the post to the website!
         addPostToPage(
             jsonData[i].username,
@@ -31,11 +31,10 @@ function addPostToPage(username, postText, imageURL, postTime, postID, numLikes,
     var iLikedImg = `<img src="images/heart.png" height="20">`;
     for (i = 0; i < numLikes.length; i++){
         if(sessionUsername == numLikes[i]){
-            console.log("I have liked this!");
             iLikedImg = `<img src="images/hearted.png" height="20">`;
         }
     }
-
+    
     // this big block displays the actual original post to the page
     var postHTML =  `
                 <div id="post">
@@ -151,8 +150,9 @@ function commentButton(post, postID){
 }
 
 function getUsername(data){
+    // set sessionUsername to your username
     sessionUsername = data.srcElement.responseText;
-    console.log('got username: ' + sessionUsername);
+    //console.log('got username: ' + sessionUsername);
 
     // Change the profile username to your username!
     document.getElementById("username").innerHTML = sessionUsername;
@@ -174,6 +174,11 @@ window.onload = function(){
     usernameReq.send();
 }
 
+function newsDate(d){
+    // return month/day/year
+    return `${d.slice(5, 7)}/${d.slice(8, 10)}/${d.slice(0, 4)}`;
+}
+
 // News Sidebar
 $(document).ready(function() {
     //Retrieves the first three Canadian news article from NewsAPI.org
@@ -183,30 +188,24 @@ $(document).ready(function() {
         async: false,
         dataType: "json",
         success: function(data) {
-            console.log(data);  //Testing
-            console.log(data.articles);  //Testing
-
             var articles = data.articles;
-            var newsDisplay = "<table>";
 
+            // here's formatting for the news articles 
             for (var i = 0; i < 3; i++) {
-                newsDisplay += "<tr id='article'>";
-                newsDisplay += "<td id='articleDetails'>";
-                newsDisplay += "<a href='"+articles[i].url+"' target='_blank'>";
-                newsDisplay += "<div id='articleTitle'>"+articles[i].title+"</div>";
-                newsDisplay += "</a>";
-                newsDisplay += "<div id='articleSource'>"+articles[i].source.name+"</div>";
-                newsDisplay += "<div id='datePublished'>"+"Published: "+articles[i].publishedAt+"</div>";
-                //newsDisplay += "</td>";
-                //newsDisplay += "<td id='articlePic' align='center'>";
-                newsDisplay += "<img id='articleImage' src="+articles[i].urlToImage+">";
-                //newsDisplay += "</td>";
-                newsDisplay += "</td>";
-                newsDisplay += "</tr>";
-            }
+                document.getElementById("newsdisplay").innerHTML += `
+                <div id="article">
+                    <td id="articleDetails">
+                        <a id="titlewrap" href="${articles[i].url}" target="_blank">
+                            <div id="articleTitle">${articles[i].title}</div>
+                        </a>
 
-            newsDisplay += "</table>";
-            $(".newsArticles").html(newsDisplay);
+                        <div id="articleSource">${articles[i].source.name}</div>
+                        <div id="datePublished">Published: ${newsDate(articles[i].publishedAt)}</div>
+                        
+                        <img id="articleImage" src="${articles[i].urlToImage}">
+                    </td>
+                </div>`;
+            }
         }
     })
 });

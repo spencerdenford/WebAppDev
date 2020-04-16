@@ -1,67 +1,67 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <title>Messages</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
-    <link rel="stylesheet" href="messages.css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="socketio/socket.io.js"></script>
-    <script type="text/javascript" src="messages.js"></script>
-</head>
-<body>
-    <header>
-        <!-- Navbar -->
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-menu">
-                <a class="logo" href="/home">
-                    <img src="images/bookFACE.png" id="home" alt="BookFace"/>
-                </a>
-                <a class="title" href="/home">
-                    BookFace
-                </a>
-                <a class="title" href="/home">
-                    Home
-                </a>
-                <a class="title" href="/profile">
-                    Profile
-                </a>
-                <a class="title" href="/news">
-                    News
-                </a>
-                <a class="logout", href="/logout">
-                    Log Out
-                </a>
+        <title>Messages</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
+        <link rel="stylesheet" href="messages.css" />
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="socketio/socket.io.js"></script>
+        <script type="text/javascript" src="messages.js"></script>
+    </head>
+    <body>
+        <header>
+            <!-- Navbar -->
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-menu">
+                    <a class="logo" href="/home">
+                        <img src="images/bookFACE.png" id="home" alt="BookFace"/>
+                    </a>
+                    <a class="title" href="/home">
+                        BookFace
+                    </a>
+                    <a class="title" href="/home">
+                        Home
+                    </a>
+                    <a class="title" href="/profile">
+                        Profile
+                    </a>
+                    <a class="title" href="/news">
+                        News
+                    </a>
+                    <a class="logout", href="/logout">
+                        Log Out
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <div id="messages">
+            <!-- TODO add room creator -->
+
+            <div id="roomSelect">
+                <div id="roomSelectTitle">Please enter the name of room you would like to join:</div>
+                <input id="roomInput" type="text" name="textfield" placeholder="Enter room name:"/>
+                <a id="joinRoom">Join room</a>
             </div>
-        </nav>
-    </header>
 
-    <div id="messages">
-        <!-- TODO add room creator -->
+            <div class="message" id="message"> <!-- this is the one room -->
+                <div id="innerMessage">
+                    <img id="roomimage" src="images/mandelbrot.png" />
+                    <a id="roomName"></a>
+                    <div id="history">
 
-        <div id="roomSelect">
-            <div id="roomSelectTitle">Please enter the name of room you would like to join:</div>
-            <input id="roomInput" type="text" name="textfield" placeholder="Enter room name:"/>
-            <a id="joinRoom">Join room</a>
+                    </div>
+                    <div id="prompt">
+                        Click here to send a message
+                    </div>
+                </div>
+                <!-- text box goes here from javascript -->
+            </div>
         </div>
 
-        <div class="message" id="message"> <!-- this is the one room -->
-            <div id="innerMessage">
-                <img id="roomimage" src="images/mandelbrot.png" />
-                <a id="roomName"></a>
-                <div id="history">
-
-                </div>
-                <div id="prompt">
-                    Click here to send a message
-                </div>
-            </div>
-            <!-- text box goes here from javascript -->
-        </div>
-    </div>
-
-</body>
+    </body>
 </html>

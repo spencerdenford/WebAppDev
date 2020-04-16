@@ -1,14 +1,14 @@
 body {
     margin: 0;
     display: grid;
-    grid-template-rows: 6rem 10rem auto;
-    grid-template-columns: 20% 50% 30%;
+    grid-template-rows: 6rem 10rem auto 10rem;
+    grid-template-columns: 10% 16% 40% 24% 10%;
 
     font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
-    grid-column: 1 / span 3;
+    grid-column: 1 / span 5;
     grid-row: 1;
     margin-top: 5px;
     margin-right: 5px;
@@ -52,7 +52,6 @@ header img {
 
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
-    text-align: center;
     display: inline-block;
     transition-duration: 0.4s;
     cursor: pointer;
@@ -67,9 +66,57 @@ header img {
     color: white;
 }
 
-#messages {
+#button2 {
+    font-size: 1.05rem;
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.8rem;
+    margin-top: 0.5rem;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    float: right;
+
+    text-decoration: none;
+
+    background-color: white; 
+    color: black; 
+    border: 2px solid darkblue;
+}
+
+#button2:hover {
+    background-color: darkblue;
+    color: white;
+}
+
+#buttonwrap{
+    padding-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+#button3 {
+    margin: 2rem;
+    font-size: 1.05rem;
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.8rem;
+    margin-top: 0.5rem;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    text-decoration: none;
+
+    background-color: white; 
+    color: black; 
+    border: 2px solid darkblue;
+}
+
+#button3:hover {
+    background-color: darkblue;
+    color: white;
+}
+
+#sidelinks {
     grid-row: 3;
-    grid-column: 1;
+    grid-column: 2;
     margin-left: 5px;
     margin-right: 5px;
 
@@ -78,58 +125,6 @@ header img {
     background: lavender;
     
     border-right: 1px solid lightsteelblue;
-}
-
-#messagesInner {
-    margin: 1rem;
-}
-
-#messages #messageTitle {
-    font-size: 3rem;
-}
-
-#sender {
-    font-size: 1.5rem;
-    padding-left: 0.5rem;
-    padding-top: 1rem;
-
-    text-decoration: none;
-    color: black;
-
-    border-top: 1px solid gray;
-}
-
-#message {
-    margin-left: 1rem;
-    
-    text-decoration: none;
-    color: black;
-}
-
-#messagesMore {
-    font-size: 1.25rem;
-    border-radius: 0.5rem;
-    padding: 0.4rem 0.8rem;
-    text-align: center;
-    display: inline-block;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    margin-top: 1rem;
-
-    text-decoration: none;
-
-    background-color: white; 
-    color: black; 
-    border: 2px solid mediumblue;
-}
-
-#messagesMore:hover {
-    background-color: mediumblue;
-    color: white;
-}
-
-#messageblock {
-    text-decoration: none;
 }
 
 #post {
@@ -160,7 +155,7 @@ header img {
 }
 
 #composePost {
-    grid-column: 2;
+    grid-column: 3;
     grid-row: 2;
     margin-top: 5px;
 
@@ -170,31 +165,24 @@ header img {
 }
 
 #composePicture {
-    grid-column: 2;
+    grid-column: 3;
     grid-row: 2;
 
     float: left;
 
     border-radius: 50%;
 
-    height: 100px;
-    width: 100px;
+    height: 50%;
+    width: auto;
 }
 
 #postText {
-    margin-left: 1rem;
-    margin-right: 2rem;
-    width: 70%;
+    float: right;
+
+    width: 80%;
     height: 5rem;
 
     resize: none;
-}
-
-#composeIcon {
-    margin-top: 0.5rem;
-    height: 30px;
-    width: auto;
-    float: bottom;
 }
 
 #fileimage{
@@ -204,43 +192,24 @@ header img {
     padding-bottom: 20px;
     width: 0px;
     float: left;
+    
     margin-top: 0.5rem;
     margin-left: 1.5rem;
 }
 
-#button2 {
-    font-size: 1.05rem;
-    border-radius: 0.5rem;
-    padding: 0.3rem 0.8rem;
-    margin-top: 0.5rem;
-    text-align: center;
-    transition-duration: 0.4s;
-    cursor: pointer;
-
-    float: right;
-
-    text-decoration: none;
-
-    background-color: white; 
-    color: black; 
-    border: 2px solid darkblue;
+#filewrap {
+    float: left;
 }
 
-#button2:hover {
-    background-color: darkblue;
-    color: white;
-}
-
-#feed {
-    grid-column: 2;
+#posts {
+    grid-column: 3;
     grid-row: 3;
 
     margin-top: 1rem;
-
 }
 
 #explore {
-    grid-column: 3;
+    grid-column: 4;
     grid-row: 2 / span 2;
     margin-left: 5px;
     margin-right: 5px;
@@ -250,23 +219,21 @@ header img {
 	background: lavender;
 }
 
-#exploretitle {
-    font-size: 3rem;
-    margin-left: 1rem;
-}
-
 #newstitle {
     font-size: 1.7rem;
     margin-left: 1.5rem;
     margin-right: 1.5rem;
-    padding: 1rem;
-    
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
+    padding-top: 1rem;
+}
+
+#titlewrap{
+    text-decoration: none;
 }
 
 #articleTitle {
     margin-left: 1rem;
+    margin-right: 3rem;
+    padding-bottom: 1rem;
 
     font-weight: bold;
     font-size: larger;
@@ -284,16 +251,25 @@ header img {
 
 #articleImage {
     margin-top: 1rem;
-    margin-left: 2.7rem;
+    margin-left: 1.7rem;
 
     border-radius: 8px;
     height: auto;
-    width: 300px;
+    width: 250px;
+}
+
+#article {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+
+    border-bottom: 1px solid lightsteelblue;
 }
 
 #profilewrap {
     grid-row: 2;
-    grid-column: 1;
+    grid-column: 2;
     margin-right: 5px;
     margin-left: 5px;
 
@@ -339,23 +315,6 @@ header img {
 
 #commentmessage {
     padding: 1rem;
-}
-
-#postbutton {
-    margin-left: 1rem;
-    padding: 0.7rem;
-    
-    text-align: center;
-    transition-duration: 0.4s;
-    cursor: pointer;
-
-    border: 1px solid darkblue;
-    border-radius: 20%;
-}
-
-#postbutton:hover {
-    background: darkblue;
-    color: white;
 }
 
 #comment{
