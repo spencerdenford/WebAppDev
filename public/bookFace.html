@@ -14,10 +14,13 @@
                     <img src="images/bookFACE.png" id="home" alt="BookFace"/>
                 </a>
                 <a id="title">
-                    booKfaCe
+                    BookFace
                 </a>
                 <a id="topLinks" href="/home">
                     home
+                </a>
+                <a id="topLinks" href="/profile">
+                    profile
                 </a>
                 <a id="topLinks" href="/messages">
                     messages
@@ -32,6 +35,7 @@
                 </form>
             </div>
         </header>
+
         
         <a id="profilewrap" href="/profile">    
             <div id="profile"> Profile </div>
@@ -39,48 +43,41 @@
             <div id="username">UserName</div>
         </a>
 
-        <div id="messages">
-            <div id="messagesInner">
-                    <p id="messageTitle">Messages</p>
-                <a id="messageblock" href="/messages">
-                    <p id="sender">sender 1</p>
-                    <p id="message">message 1</p>
-                </a>
-                <a id="messageblock" href="/messages">
-                    <p id="sender">sender 2</p>
-                    <p id="message">message 2</p>
-                </a>
-                <a id="messageblock" href="/messages">
-                    <p id="sender">sender 3</p>
-                    <p id="message">message 3</p>
-                </a>
-                <a id="messagesMore" href="/messages">More ...</a>
-            </div>
+
+        <div id="sidelinks">
+
         </div>
 
-        <form method="post" action="postButton" id="composePost" enctype="multipart/form-data">
-            <input type="text" name="textfield" id="postText" href="/composePost" placeholder="Type Here:"/>
-            <img id="composePicture" src="images/mandelbrot.png"/>
 
+        <form method="post" action="postButton" id="composePost" enctype="multipart/form-data">
+            <img id="composePicture" src="images/mandelbrot.png"/>
+            <input type="text" name="textfield" id="postText" href="/composePost" placeholder="Type Here:"/>
             
-            <input id="fileimage" type="file" name="filetoupload"/>
-            <!--<img id="composeIcon" src="images/camera.png"/>-->
+            <div id="filewrap">
+                <input id="fileimage" type="file" name="filetoupload"/>
+            </div>
             <input type="submit" id="button2" value="Post"/>
         </form>
         
-        <div id="feed">
-            <div id="posts">
-                <!-- add the posts here -->
-            </div>
+
+        <div id="posts">
+            <!-- add the posts here -->
         </div>
 
-        <!-- News -->
+
         <div id="explore">
-            <p id="exploretitle">Explore</p>
+            <!-- News -->
             <div id="newstitle">
                 News
             </div>
-            <div class="newsArticles"></div>
+            <table id="newsdisplay"> 
+
+            </table>
+            <div id="buttonwrap">
+                <a id="button3" href="/news">
+                    More news...
+                </a>    
+            <div>
         </div>
         
     </body>
