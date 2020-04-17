@@ -159,6 +159,9 @@ app.get('/news', (request, response) => {
 });
 
 app.get('/profile', (request, response) => {
+  if(request.session.username == undefined){
+    response.redirect('/login');
+  }
   var user = request.query.user;
   if (user == undefined || user == "") {
     response.redirect('/profile?user=' + request.session.username);
@@ -227,6 +230,7 @@ app.post('/changeProfilePic', function(req, res){
     console.log('updating user: ' + username + ', profilePicName: ' + filename);
     mongoose.connection.db.collection('users').updateOne({ username: username }, { $set: { profilePic: filename } });
   });
+  res.redirect(req.get('referer'));
 });
 
 // add post to posts collection when user clicks post
