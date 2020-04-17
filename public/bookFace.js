@@ -6,7 +6,7 @@ async function reqListener(data) {
     //data = this.responseText;
     var jsonData = JSON.parse(this.responseText);
     var hostURL = "http://localhost:3000/images/useruploads/"
-    console.log(jsonData);
+    //console.log(jsonData);
 
     for(var i = jsonData.length - 1; i >= 0; i--){
         // for each post entry we add the post to the website!
@@ -92,7 +92,7 @@ function formatDate(d){
         mins = date.getMinutes();
     }
 
-    // here we decide how to display the hour (0 is 12am and we don't want a 24 hour clock)
+    // decides how to display the hour (0 is 12am and we don't want a 24 hour clock)
     if (date.getHours() == 0) {
         dateString += `12:${mins}am `;
     }
@@ -138,7 +138,7 @@ function commentButton(post, postID){
 
                 // add the new comment to the database
                 var postCommentReq = new XMLHttpRequest();
-                postCommentReq.addEventListener("load", (d)=>{console.log('sent')});
+                postCommentReq.addEventListener("load", (d)=>{});
                 postCommentReq.open("POST", '/postComment');
                 postCommentReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 postCommentReq.send(JSON.stringify({"comment": comment, "postID": postID}));
@@ -191,7 +191,7 @@ $(document).ready(function() {
         success: function(data) {
             var articles = data.articles;
 
-            // here's formatting for the news articles 
+            // formatting for the news articles 
             for (var i = 0; i < 3; i++) {
                 document.getElementById("newsdisplay").innerHTML += `
                 <div id="article">

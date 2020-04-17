@@ -4,7 +4,7 @@ var sessionUsername;
 
 async function makePosts() {
     var jsonData = JSON.parse(this.responseText);
-    console.log(jsonData);
+    //console.log(jsonData);
     for (var i = jsonData.length - 1; i > -1; i--) {
         addPostToPage(jsonData[i].username,
             jsonData[i].postText,
@@ -31,7 +31,7 @@ function addPostToPage(username, postText, imageName, postTime, postID, numLikes
         }
     }
     
-    // this big block displays the actual original post to the page
+    // displays the actual original post to the page
     var postHTML =  `
                 <div id="post">
                     <image id="postpic" src="${hostURL+"getProfilePic?user="+username}" height="35" />
@@ -92,7 +92,7 @@ function formatDate(d){
         mins = date.getMinutes();
     }
 
-    // here we decide how to display the hour (0 is 12am and we don't want a 24 hour clock)
+    // decides how to display the hour (0 is 12am and we don't want a 24 hour clock)
     if (date.getHours() == 0) {
         dateString += `12:${mins}am `;
     }
@@ -111,7 +111,7 @@ function formatDate(d){
 
 function getUsername(data) {
     sessionUsername = data.srcElement.responseText;
-    console.log('got username: ' + sessionUsername);
+    //console.log('got username: ' + sessionUsername);
 
     // if this profile is the user's profile
     if(username == sessionUsername){
@@ -122,7 +122,7 @@ function getUsername(data) {
         </form>`;
     
         document.getElementById("fileimage").onchange = function () {
-            console.log('submit form');
+            //console.log('submit form');
             document.getElementById("profilePicForm").submit();
         };
     }
@@ -158,7 +158,7 @@ function commentButton(post, postID){
 
                 // add the new comment to the database
                 var postCommentReq = new XMLHttpRequest();
-                postCommentReq.addEventListener("load", (d)=>{console.log('sent')});
+                postCommentReq.addEventListener("load", (d)=>{});
                 postCommentReq.open("POST", '/postComment');
                 postCommentReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 postCommentReq.send(JSON.stringify({"comment": comment, "postID": postID}));
@@ -194,6 +194,6 @@ window.onload = function () {
     $('#username').html(username);
 
     this.document.getElementById("edit").onclick = function(){
-        console.log("edit button!");
+        //console.log("edit button!");
     };
 }
