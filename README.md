@@ -7,6 +7,28 @@ CSCI 3230U - Web Application Development: Final Project
  - Clone GitHub repository to device
  * In directory:
     - npm install
+    - npm install socket.io
+    - mongod
+    - mongo mongoscript.js
+    - node basic.js
+ * In browser:
+    - Go to "localhost:3000"
+    - Click "Create User" button on top right
+    - Register
+    
+### Using the website
+ * To make a post:
+    - Enter text into the textfield at the top of the home page
+    - Optionally, click the image icon to choose an image to upload
+    - Click "Post"
+ * To comment on posts:
+    - Click on comment button
+    - Enter text in new textfield
+    - Click "Post"
+ * To Change your profile picture:
+    - Navigate to your user profile
+    - Click the image icon close to your profile picture
+    - Choose an image from your device
 
 ### Home Page
 
