@@ -15,6 +15,8 @@ async function makePosts() {
             jsonData[i].comments,
         );
     }
+
+    commentButton();
 }
 
 function addPostToPage(username, postText, imageName, postTime, postID, numLikes, comments){
@@ -34,8 +36,10 @@ function addPostToPage(username, postText, imageName, postTime, postID, numLikes
     // displays the actual original post to the page
     var postHTML =  `
                 <div id="post">
-                    <image id="postpic" src="${hostURL+"getProfilePic?user="+username}" height="35" />
-                    <div id="postname">${username}</div>
+                    <a href="/profile?user=${username}">
+                        <image id="postpic" src="${hostURL+"getProfilePic?user="+username}" height="35" />
+                    </a>
+                    <a id="postname" href="/profile?user=${username}">${username}</a>
                     <div id="posttime">${formatDate(postTime)}</div>
                     <p id="postcontent">${postText}</p>`
 
@@ -43,8 +47,7 @@ function addPostToPage(username, postText, imageName, postTime, postID, numLikes
         postHTML += `<div><img class="attachedpicture" id="attachedpicture" src=${imgURL + "useruploads/" + imageName} height="200" width="200"/></p>`
 
     postHTML += `
-    
-                    <input type="hidden" name="postID" id="test" value="${postID}">
+                    <input class="postID" type="hidden" name="postID" id="test" value="${postID}">
                     <button class="likebutton" type="submit" formaction="/like" style="background:transparent; border:none; color:transparent;">
                         ${iLikedImg}
                     </button>
@@ -57,8 +60,10 @@ function addPostToPage(username, postText, imageName, postTime, postID, numLikes
 
     for(var i = 0; i < comments.length; i++){
         postHTML += `<div id="comment">
-            <image id="postpic" src="${hostURL+"getProfilePic?user="+comments[i].username}" height="35" />
-            <div id="postname">${comments[i].username}</div>
+            <a href=/profile?user=${comments[i].username}>
+                <image id="postpic" src="${hostURL+"getProfilePic?user="+comments[i].username}" height="35" />
+            </a>
+            <a id="postname" href=/profile?user=${comments[i].username}>${comments[i].username}</a>
             <div id="posttime">${formatDate(comments[i].time)}</div>
             <p id="postcontent">Re: ${comments[i].comment}</p>
         </div>`;
@@ -74,8 +79,8 @@ function addPostToPage(username, postText, imageName, postTime, postID, numLikes
     $('#posts').append(postHTML);
 
     // first element will be the post which was just appended
-    var post = $('#posts')[0].children[$('#posts')[0].children.length - 1];
-    commentButton(post, postID);
+    //var post = $('#posts')[0].children[$('#posts')[0].children.length - 1];
+    //commentButton(post, postID);
 }
 
 function formatDate(d){
@@ -111,12 +116,12 @@ function formatDate(d){
 
 function getUsername(data) {
     sessionUsername = data.srcElement.responseText;
-    //console.log('got username: ' + sessionUsername);
 
     // if this profile is the user's profile
     if(username == sessionUsername){
         var pageheader = document.getElementById('pageheader');
-        pageheader.innerHTML += `<form method="POST" action="changeProfilePic" id="profilePicForm" enctype="multipart/form-data">
+        pageheader.innerHTML += `
+        <form method="POST" action="changeProfilePic" id="profilePicForm" enctype="multipart/form-data">
             <input type="hidden" name="username" id="test" value="${sessionUsername}">
             <input id="fileimage" type="file" name="newProfilePic"/>
         </form>`;
@@ -128,44 +133,52 @@ function getUsername(data) {
     }
 }
 
-function commentButton(post, postID){
-    var commentButtonDOM = post.children[7];
+function commentButton(){
+    var commentButtonDOM = document.getElementsByClassName("commentbutton");
+    for (i = 0; i < commentButtonDOM.length; i++){
+        commentButtonDOM[i].onclick = function(){
+            console.log("pls");
+            // add input box
+            this.parentElement.innerHTML +=   `
+                <form id="commentwrap">
+                    <input id="commentmessage" type="text" name="textfield" placeholder="Type comment here:"/>
+                    <a id="button">Post</a>
+                </form>`;
 
-    commentButtonDOM.onclick = function(){
-        // add input box
-        post.innerHTML +=   `
-            <form id="commentwrap">
-                <input id="commentmessage" type="text" name="textfield" placeholder="Type comment here:"/>
-                <a id="button">Post</a>
-            </form>`;
+            var commentForm = document.getElementById("button");//this.parentElement[this.childElementCount - 1];
+            commentForm.onclick = function() {
+                var comment = commentForm.parentElement.children[0].value;
+                console.log(comment);
 
-        var commentForm = post.children[post.childElementCount - 1];
-        commentForm.children[1].onclick = function() {
-            var comment = commentForm.children[0].value;
+                if (comment != ""){
+                    var thisPost = commentForm.parentElement.parentElement.children[2].value;
+                    var inner = commentForm.parentElement.parentElement;
 
-            if (comment != ""){
-                // erase the text box by removing its surrounding div tag
-                commentForm.remove();
+                    // erase the text box by removing its surrounding div tag
+                    commentForm.parentElement.remove();
 
-                // add the new comment to the html
-                post.innerHTML += `
-                    <div id="comment">
-                        <image id="postpic" src="images/mandelbrot.png" height="35" />
-                        <div id="postname">${sessionUsername}</div>
-                        <div id="posttime">${formatDate(new Date())}</div>
-                        <p id="postcontent">${comment}</p>
-                    </div>`;
+                    // add the new comment to the html
+                    inner.innerHTML += `
+                        <div id="comment">
+                            <a href=/profile?user=${sessionUsername}>
+                                <image id="postpic" src="${hostURL+"getProfilePic?user="+sessionUsername}" height="35" />
+                            </a>
+                            <a href=/profile?user=${sessionUsername} id="postname">${sessionUsername}</a>
+                            <div id="posttime">${formatDate(new Date())}</div>
+                            <p id="postcontent">Re: ${comment}</p>
+                        </div>`;
 
-                // add the new comment to the database
-                var postCommentReq = new XMLHttpRequest();
-                postCommentReq.addEventListener("load", (d)=>{});
-                postCommentReq.open("POST", '/postComment');
-                postCommentReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                postCommentReq.send(JSON.stringify({"comment": comment, "postID": postID}));
+                    // add the new comment to the database
+                    var postCommentReq = new XMLHttpRequest();
+                    postCommentReq.addEventListener("load", (d)=>{console.log('sent')});
+                    postCommentReq.open("POST", '/postComment');
+                    postCommentReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                    postCommentReq.send(JSON.stringify({"comment": comment, "postID": thisPost}));
+                }
+
+                // call commentButton again to allow multiple comments
+                commentButton();
             }
-
-            // call commentButton again to allow multiple comments
-            commentButton(post, postID);
         }
     }
 }
@@ -192,8 +205,5 @@ window.onload = function () {
 
     // set username field
     $('#username').html(username);
-
-    this.document.getElementById("edit").onclick = function(){
-        //console.log("edit button!");
-    };
+ 
 }

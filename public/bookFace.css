@@ -140,6 +140,9 @@ header img {
 #postname {
     padding-left: 1rem;
     float: left;
+
+    text-decoration: none;
+    color: black;
 }
 
 #posttime {
@@ -172,8 +175,8 @@ header img {
 
     border-radius: 50%;
 
-    height: 50%;
-    width: auto;
+    height: 70px;
+    width: 70px;
 }
 
 #postText {
@@ -251,11 +254,11 @@ header img {
 
 #articleImage {
     margin-top: 1rem;
-    margin-left: 1.7rem;
+    margin-left: 10%;
 
     border-radius: 8px;
     height: auto;
-    width: 250px;
+    width: 80%;
 }
 
 #article {
