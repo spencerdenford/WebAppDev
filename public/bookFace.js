@@ -39,8 +39,10 @@ function addPostToPage(username, postText, imageURL, postTime, postID, numLikes,
     // this big block displays the actual original post to the page
     var postHTML =  `
         <div id="post">
-            <image id="postpic" src="${hostURL+"getProfilePic?user="+username}" height="35"/>
-            <div id="postname">${username}</div>
+            <a href="/profile?user=${username}">
+                <image id="postpic" src="${hostURL+"getProfilePic?user="+username}" height="35"/>
+            </a>
+            <a id="postname" href="/profile?user=${username}">${username}</a>
             <div id="posttime">${formatDate(postTime)}</div>
             <p id="postcontent">${postText}</p>
             <div>
@@ -59,8 +61,10 @@ function addPostToPage(username, postText, imageURL, postTime, postID, numLikes,
     for(var i = 0; i < comments.length; i++){
         postHTML += `
                     <div id="comment">
-                        <image id="postpic" src="${hostURL+"getProfilePic?user="+comments[i].username}" height="35" />
-                        <div id="postname">${comments[i].username}</div>
+                        <a href="/profile?user=${comments[i].username}">
+                            <image id="postpic" src="${hostURL+"getProfilePic?user="+comments[i].username}" height="35" />
+                        </a>
+                        <a id="postname" href="/profile?user=${comments[i].username}">${comments[i].username}</a>
                         <div id="posttime">${formatDate(comments[i].time)}</div>
                         <p id="postcontent">Re: ${comments[i].comment}</p>
                     </div>`;
@@ -131,8 +135,10 @@ function commentButton(post, postID){
                 // add the new comment to the html
                 post.innerHTML += `
                     <div id="comment">
-                        <image id="postpic" src="${hostURL + "getProfilePic?user=" + sessionUsername}" height="35" />
-                        <div id="postname">${sessionUsername}</div>
+                        <a href="/profile?user=${sessionUsername}>
+                            <image id="postpic" src="${hostURL + "getProfilePic?user=" + sessionUsername}" height="35" />
+                        </a>
+                        <a id="postname" href="/profile?user=${sessionUsername}">${sessionUsername}</a>
                         <div id="posttime">${formatDate(new Date())}</div>
                         <p id="postcontent">Re: ${comment}</p>
                     </div>`;

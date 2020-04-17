@@ -121,6 +121,9 @@ header {
 #postname {
     padding-left: 1rem;
     float: left;
+
+    text-decoration: none;
+    color: black;
 }
 
 #posttime {
