@@ -29,6 +29,12 @@ CSCI 3230U - Web Application Development: Final Project
     - Navigate to your user profile
     - Click the image icon close to your profile picture
     - Choose an image from your device
+ * To message other users:
+    - Duplicate the page
+    - Enter the same room name on both the original and duplicated page
+    - Click on the chat box on the original and duplicated page
+    - Write a message on the original page and press enter
+    - Write a message on the duplicated page and press enter
 
 ### Home Page
 
