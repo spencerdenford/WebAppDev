@@ -24,10 +24,10 @@ function addPostToPage(username, postText, imageName, postTime, postID, numLikes
         image = `<p><img class="attachedpicture" id="attachedpicture" src=${imageName} height="200" width="200"/></p>`;
     }
 
-    var iLikedImg = `<img src="images/heart.png" height="20">`;
+    var iLikedImg = `<img id="likeImage" src="images/heart.png" height="20">`;
     for (i = 0; i < numLikes.length; i++){
         if(sessionUsername == numLikes[i]){
-            iLikedImg = `<img src="images/hearted.png" height="20">`;
+            iLikedImg = `<img id="likeImage" src="images/hearted.png" height="20">`;
         }
     }
     
@@ -43,15 +43,16 @@ function addPostToPage(username, postText, imageName, postTime, postID, numLikes
         postHTML += `<div><img class="attachedpicture" id="attachedpicture" src=${imgURL + "useruploads/" + imageName} height="200" width="200"/></p>`
 
     postHTML += `
+    
+                    <input type="hidden" name="postID" id="test" value="${postID}">
+                    <button class="likebutton" type="submit" formaction="/like" style="background:transparent; border:none; color:transparent;">
+                        ${iLikedImg}
+                    </button>
+                    <a class="likecount" id="likes">${numLikes.length}</a>
+                    <a class="commentbutton" type="submit" style="background:transparent; border:none; color:transparent;">
+                        <img src="images/comment.png" height="20" width="20">
+                    </a>
                     <form method="POST">
-                        <input type="hidden" name="postID" id="test" value="${postID}">
-                        <button class="likebutton" type="submit" formaction="/like" style="background:transparent; border:none; color:transparent;">
-                            ${iLikedImg}
-                        </button>
-                        <a class="likecount" id="likes">${numLikes.length}</a>
-                        <a class="commentbutton" type="submit" style="background:transparent; border:none; color:transparent;">
-                            <img src="images/comment.png" height="20">
-                        </a>
                         <a id="comments">`;
 
     for(var i = 0; i < comments.length; i++){
@@ -114,7 +115,6 @@ function getUsername(data) {
 
     // if this profile is the user's profile
     if(username == sessionUsername){
-        console.log("username == sessionUsername");
         var pageheader = document.getElementById('pageheader');
         pageheader.innerHTML += `<form method="POST" action="changeProfilePic" id="profilePicForm" enctype="multipart/form-data">
             <input type="hidden" name="username" id="test" value="${sessionUsername}">
@@ -129,17 +129,14 @@ function getUsername(data) {
 }
 
 function commentButton(post, postID){
-    if(post.children[5] == undefined){
-        console.log("ERROR: post.children[5] == undefined");
-        return;
-    }
-    var commentButtonDOM = post.children[5].children[3];
+    var commentButtonDOM = post.children[7];
+
     commentButtonDOM.onclick = function(){
         // add input box
         post.innerHTML +=   `
             <form id="commentwrap">
                 <input id="commentmessage" type="text" name="textfield" placeholder="Type comment here:"/>
-                <a id="postbutton">Post</a>
+                <a id="button">Post</a>
             </form>`;
 
         var commentForm = post.children[post.childElementCount - 1];

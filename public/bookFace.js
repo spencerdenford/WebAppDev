@@ -116,7 +116,7 @@ function commentButton(post, postID){
         post.innerHTML +=   `
             <form id="commentwrap">
                 <input id="commentmessage" type="text" name="textfield" placeholder="Type comment here:"/>
-                <a id="postbutton">Post</a>
+                <a id="button3">Post</a>
             </form>`;
 
         var commentForm = post.children[post.childElementCount - 1];
