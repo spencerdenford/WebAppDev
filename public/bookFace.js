@@ -40,7 +40,7 @@ function addPostToPage(username, postText, imageURL, postTime, postID, numLikes,
     var postHTML =  `
                 <div id="post">
                     <image id="postpic" src="${hostURL+"getProfilePic?user="+username}" height="35"/>
-                    <div id="postname">${username}</div>
+                    <div id="postname"><a href="${hostURL+"profile?user="+username}">${username}</a></div>
                     <div id="posttime">${formatDate(postTime)}</div>
                     <p id="postcontent">${postText}</p>
                     <div>
