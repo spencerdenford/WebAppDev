@@ -22,7 +22,7 @@ This page implements sockets to provide BookFace members with the ability to cha
 
 ### News Page
 
-In this page, 20 breaking news headlines from Canada will be displayed. Every few hours or so the page will be updated with new articles.
+In this page, 20 breaking news headlines from Canada are gathered from newsapi.org and displayed dynamically on the page through the use of jQuery AJAX. Every few hours or so the page will be updated with new articles.
 
 ## Authors
 
