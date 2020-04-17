@@ -137,7 +137,6 @@ function commentButton(){
     var commentButtonDOM = document.getElementsByClassName("commentbutton");
     for (i = 0; i < commentButtonDOM.length; i++){
         commentButtonDOM[i].onclick = function(){
-            console.log("pls");
             // add input box
             this.parentElement.innerHTML +=   `
                 <form id="commentwrap">
@@ -148,10 +147,10 @@ function commentButton(){
             var commentForm = document.getElementById("button");//this.parentElement[this.childElementCount - 1];
             commentForm.onclick = function() {
                 var comment = commentForm.parentElement.children[0].value;
-                console.log(comment);
 
                 if (comment != ""){
-                    var thisPost = commentForm.parentElement.parentElement.children[2].value;
+                    // this gets the id of the parent post
+                    var thisPost = commentForm.parentElement.parentElement.children[4].value;
                     var inner = commentForm.parentElement.parentElement;
 
                     // erase the text box by removing its surrounding div tag
